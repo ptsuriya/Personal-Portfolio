@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import BootstrapClient from "@/components/BootstrapClient";
 import Navbars from "@/components/Navbars/Navbars";
 import "./globals.css";
+import Loadings from '@/components/LoadingScreen/Loading';
 
 const kanit = Kanit({ 
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="th">
       
       <body className={kanit.className}>
+        <Loadings/>
         <Navbars/>
         {children}
         <BootstrapClient/>
