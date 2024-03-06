@@ -9,7 +9,7 @@ import './Navbars.css';
 
 function Navbars() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary ">
+    <Navbar collapseOnSelect expand="lg" className="bg-navbar ">
       <Container>
         <Navbar.Brand href="#home">
           <Image
