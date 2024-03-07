@@ -1,3 +1,8 @@
 .bg-navbar {
     background-color: #F8F9FA ;
 }
+
+.bg-navbar svg {
+    width: 20px;
+    margin-top: -5px;
+}
