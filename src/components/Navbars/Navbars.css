@@ -38,3 +38,9 @@
   .fadeInDownBig {
     animation-name: fadeInDownBig;
   }
+
+
+.bg-navbar svg {
+    width: 20px;
+    margin-top: -5px;
+}

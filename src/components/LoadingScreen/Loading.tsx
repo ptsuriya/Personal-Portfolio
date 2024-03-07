@@ -13,17 +13,14 @@ const Loading: React.FC<LoadingProps> = () => {
   useEffect(() => {
     let i = 0;
     const pollDOM = () => {
-
       if (i < 1) {
         console.log(i);
         i++;
         if (i >= 0) {
           setShowBox(false);
-
           console.log("hello");
         }
       }
-
       else{
         setShowText(false);
         console.log(showText);
@@ -52,16 +49,16 @@ const Loading: React.FC<LoadingProps> = () => {
               height={300}
               alt="Picture of the author" />}
           {showBox ? <div></div> :           
-          <Image className='pic-inbox'
+          <Image className='pic-firework'
               src="/image/loader/firework.png"
-              width={300}
-              height={300}
+              width={325}
+              height={325}
               alt="Picture of the author" /> }
           {showBox ? <div></div> :           
           <Image className='pic-inbox'
               src="/image/loader/inbox.png"
-              width={200}
-              height={200}
+              width={275}
+              height={275}
               alt="Picture of the author" /> }
 
 

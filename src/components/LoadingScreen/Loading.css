@@ -28,10 +28,25 @@
 .pic-inbox{
     transform: translate(-50%, -80%);
     animation-name: popout;
-    animation-duration: 1s;
+    animation-duration: .5s;
 }
+
 @keyframes popout {
-    0% {transform: translate(-50%, -70%);}
-    100% {transform: translate(-50%, -80%);}
+    0% {transform: translate(-50%, -70%);
+    width: 0; height: 0;}
+    100% {transform: translate(-50%, -80%);
+    width: 275px; height: 275px;}
+  }
+.pic-firework{
+    transform: translate(-50%, -80%);
+    animation-name: popoutfirework;
+    animation-duration: .5s;
+}
+
+@keyframes popoutfirework {
+    0% {transform: translate(-50%, -70%);
+    width: 0; height: 0;}
+    100% {transform: translate(-50%, -80%);
+    width: 325px; height: 325px;}
   }
 
