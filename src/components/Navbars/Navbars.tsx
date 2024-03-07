@@ -1,4 +1,6 @@
 'use client'
+import { useContext, useEffect, useState } from "react"
+import ScrollObserver, { ScrollContext } from "@/components/Scroll-observer"
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,8 +10,15 @@ import Image from 'next/image';
 import './Navbars.css';
 
 function Navbars() {
+  const { scrollY } = useContext(ScrollContext)
+	const [atTop, setAtTop] = useState<boolean>(true)
+
+	useEffect(() => {
+		console.log(scrollY, ":", scrollY > 200)
+		setAtTop(scrollY < 200)
+	}, [scrollY])
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-navbar ">
+    <Navbar collapseOnSelect expand="lg" className={`bg-navbar ${!atTop && "sticky"}`}>
       <Container>
         <Navbar.Brand href="#home">
           <Image
@@ -43,4 +52,12 @@ function Navbars() {
   );
 }
 
-export default Navbars;
+function ProvidedNavbar() {
+	return (
+		<ScrollObserver>
+			<Navbars />
+		</ScrollObserver>
+	)
+}
+
+export default ProvidedNavbar

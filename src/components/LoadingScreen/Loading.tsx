@@ -9,7 +9,6 @@ interface LoadingProps { }
 const Loading: React.FC<LoadingProps> = () => {
   const [showText, setShowText] = useState(true);
   const [showBox, setShowBox] = useState(true);
-  const [showDoll, setShowDoll] = useState(true);
 
   useEffect(() => {
     let i = 0;
@@ -20,7 +19,7 @@ const Loading: React.FC<LoadingProps> = () => {
         i++;
         if (i >= 0) {
           setShowBox(false);
-          setShowDoll(false);
+
           console.log("hello");
         }
       }
