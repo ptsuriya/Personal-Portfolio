@@ -26,7 +26,7 @@ const page = () => {
 
       <Container className='text-center '>
 
-        <Row className='mt-5'>
+        <Row md={2} xs={1} className='mt-5'>
           <Col>
             <Image className='imgprofile'
               src="/image/Line/profile.jpg"
