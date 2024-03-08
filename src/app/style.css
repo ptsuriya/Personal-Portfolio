@@ -20,3 +20,7 @@
 .top-text span:nth-child(2){
     margin-left: 20px;
 }
+.details{
+    border-radius: 30px;
+    background-color: azure;
+}
