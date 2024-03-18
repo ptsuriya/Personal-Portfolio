@@ -1,6 +1,6 @@
 .preload{
+    overflow: hidden;
     position: absolute;
-    
     background-color: #FBB984;
     width: 100%;
     height: 100%;

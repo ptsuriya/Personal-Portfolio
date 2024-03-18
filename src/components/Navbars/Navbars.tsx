@@ -20,7 +20,7 @@ function Navbars() {
   return (
     <Navbar collapseOnSelect expand="lg" className={`bg-navbar ${!atTop && "sticky"}`}>
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <Image
             src="/image/Asset/KUMA.png"
             width={150}

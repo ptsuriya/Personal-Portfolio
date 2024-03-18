@@ -3,10 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import './Loading.css';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
 
 interface LoadingProps { }
 
 const Loading: React.FC<LoadingProps> = () => {
+  const router = useRouter();
   const [showText, setShowText] = useState(true);
   const [showBox, setShowBox] = useState(true);
 
@@ -25,6 +27,7 @@ const Loading: React.FC<LoadingProps> = () => {
         setShowText(false);
         console.log(showText);
         console.log('หยุด');
+        router.push('/home');
       }
     };
 
@@ -33,7 +36,7 @@ const Loading: React.FC<LoadingProps> = () => {
   }, [showText]);
 
   return (
-    <div>
+    <div className='overflow-hidden'>
       {showText &&
         <div className="preload">
 
