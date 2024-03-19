@@ -4,11 +4,8 @@
     width: 100%;
     object-fit: cover;
 }
-.top-text{
-    margin: 40px auto 50px auto;
-}
-.top-text svg {
 
+.top-text svg {
     margin-top: -5px;
     margin-right: 5px;
     width: 20px;
