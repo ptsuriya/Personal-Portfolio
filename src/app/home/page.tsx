@@ -7,13 +7,9 @@ import Image from 'next/image';
 const page = () => {
   return (
     <>
-    <Container className='text-center top-text'>
+      <Container className='text-center top-content' id='intro'>
 
-    </Container>
-
-      <Container className='text-center '>
-
-        <Row md={2} xs={1} className='mt-5'>
+        <Row md={2} xs={1} >
           <Col>
             <Image className='imgprofile'
               src="/image/Line/profile.jpg"
@@ -22,12 +18,15 @@ const page = () => {
               alt="Picture of the author" />
           </Col>
           <Col className='details top-text'>
-          <h1 >Hola , I'm Kuma</h1>
-          <h2>Ui Designer & Front-End Developer</h2>
-          <h1></h1>
+          <h4>Hola , I'm Kuma</h4>
+          <h1>Ui Designer & </h1>
+          <h1>Front-End Developer</h1>
+          <p>
+            Poramart Tsuriyaransri is a 24-year-old graduated from KMITL. Who is interested to be a UI-UX designer and web developer .
+          </p>
           <p>
             <span>
-              <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-telephone-fill" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-telephone-fill" viewBox="0 0 16 16">
                 <path d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
               </svg>
               <a href="tel:+66909617328"> 0909-617-328</a>
@@ -38,22 +37,12 @@ const page = () => {
               <a href="mailto:ptsuriyarangsri@gmail.com">ptsuriyarangsri@gmail.com </a> </span> </p>
           </Col>
         </Row>
-      </Container >
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
-      <h3> <b>ชื่อ : </b> นายปรมัตถ๋ สุริยะรังษี <b>อายุ : </b> 23 ปี</h3>
+      </Container>
+      <hr />
+      <Container>
+
+      </Container>
+      
 
     </>
   )

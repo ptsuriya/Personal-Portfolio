@@ -14,10 +14,37 @@
 .top-text p{
     margin-top: 15px;
 }
+
 .top-text span:nth-child(2){
     margin-left: 20px;
 }
+
 .details{
     border-radius: 30px;
     background-color: azure;
+}
+
+.top-text{
+    padding: 10% 3% 10% 3%;
+}
+
+.top-text h4:first-child{
+    margin: 0 0 3% 0;
+}
+
+.top-content .col {
+    margin:11% 0 11% 0;
+}
+
+
+
+@media screen and (max-width:767px) {
+    .top-content .col {
+        margin:2% 0 2% 0;
+    }
+    .imgprofile{
+        height: 350px;
+        object-fit: cover;
+    }
+    
 }
