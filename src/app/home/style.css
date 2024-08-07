@@ -1,15 +1,23 @@
-
+.top-section{
+    background-image: url(./bg-1.png);
+}
 .imgprofile{
     border-radius: 30px;
     width: 100%;
     object-fit: cover;
 }
 
-.top-text svg {
+.top-text a svg {
     margin-top: -5px;
     margin-right: 5px;
     width: 20px;
+    color: #512A00;
 }
+.top-text a {
+    text-decoration: none;
+    color: #AC9260;
+}
+
 
 .top-text p{
     margin-top: 15px;
@@ -21,7 +29,7 @@
 
 .details{
     border-radius: 30px;
-    background-color: azure;
+    background-color: #fff4dc;
 }
 
 .top-text{
@@ -33,7 +41,8 @@
 }
 
 .top-content .col {
-    margin:11% 0 11% 0;
+    margin:10% 0 10% 0;
+    max-height: 500px;
 }
 
 

@@ -20,7 +20,7 @@ const Loading: React.FC<LoadingProps> = () => {
         i++;
         if (i >= 0) {
           setShowBox(false);
-          console.log("hello");
+          
         }
       }
       else{

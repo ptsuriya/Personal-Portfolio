@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Image from 'next/image';
-import {Carousel,CarouselItem,Row,Col} from 'react-bootstrap';
+import {Carousel,CarouselItem,Row,Col, Container} from 'react-bootstrap';
 
 interface ImageProps {
   src: string;
@@ -25,16 +25,26 @@ const Gallery: React.FC = () => {
 
   return (
     <>
+    
+<Container>
+<h2>ภาพแบนเนอร์ขนาดกลาง</h2>
+    <Carousel className='mb-3'>
+        {images.map((image, index) => (
+          <CarouselItem key={index} >
+            <img className='w-100' src={image.src} alt={image.name} />
+          </CarouselItem>
+        ))}
+      </Carousel>
 
-      <span className='container-fluid'>
+      
         <Row>
         {images.map((image, index) => (
           <Col className='mb-3' xs={12} lg={4} key={index} >
-            <Image src={image.src} alt={image.name} width={76.8*8} height={30*8} />
+            <img className='w-100' src={image.src} alt={image.name}  />
           </Col>
         ))}
         </Row>
-      </span>
+      </Container>
 
     </>
   );
