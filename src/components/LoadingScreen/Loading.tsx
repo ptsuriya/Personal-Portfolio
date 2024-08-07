@@ -27,7 +27,7 @@ const Loading: React.FC<LoadingProps> = () => {
         setShowText(false);
         console.log(showText);
         console.log('หยุด');
-        router.push('/home');
+        router.push('/extention_file');
       }
     };
 

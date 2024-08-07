@@ -1,11 +1,17 @@
-import React from 'react'
+import ImageCarousels from '@/components/ImageCarousels';
+import ImageCarouselstwo from '@/components/ImageCarouselstwo';
+import Navbars from "@/components/Navbars/Navbars";
 
-const page = () => {
+const GalleryPage: React.FC = () => {
+
   return (
-    <div>
-      กำลังอัพโหลด
-    </div>
-  )
-}
+    <>
+      <Navbars/>
+      <ImageCarousels />
 
-export default page
+      <ImageCarouselstwo />
+    </>
+  );
+};
+
+export default GalleryPage;
