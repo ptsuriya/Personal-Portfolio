@@ -27,7 +27,7 @@ const Gallery: React.FC = () => {
     <>
     
 <Container>
-<h2>ภาพแบนเนอร์ขนาดกลาง</h2>
+<h2 className='mt-5'>ภาพแบนเนอร์สำหรับหน้าจอขนาดกลาง</h2>
     <Carousel className='mb-3'>
         {images.map((image, index) => (
           <CarouselItem key={index} >
