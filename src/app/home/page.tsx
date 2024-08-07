@@ -18,7 +18,7 @@ const page = () => {
               alt="Picture of the author" />
           </Col>
           <Col className='details top-text'>
-          <h4>Hola , I'm Kuma</h4>
+          <h4>Hola , I&apos; m Kuma</h4>
           <h1>Ui Designer & </h1>
           <h1>Front-End Developer</h1>
           <p>

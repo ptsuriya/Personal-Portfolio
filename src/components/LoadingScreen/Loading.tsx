@@ -36,7 +36,7 @@ const Loading: React.FC<LoadingProps> = () => {
   }, [showText]);
 
   return (
-    <div className='overflow-hidden'>
+    <section className='overflow-hidden'>
       {showText &&
         <div className="preload">
 
@@ -67,7 +67,7 @@ const Loading: React.FC<LoadingProps> = () => {
 
         </div>
       }
-    </div>
+    </section>
   );
 };
 
