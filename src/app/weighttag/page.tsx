@@ -9,8 +9,10 @@ interface FoodData {
     day: string;
     weight: number;
     meal1: string;
+    img1: string;
     snack: string;
     meal2: string;
+    img2: string;
     id: number;
 }
 
