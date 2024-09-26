@@ -36,22 +36,26 @@ const YourComponent = () => {
             <Container>
                 {data.length > 0 ? (
                     <Row>
-                    
+
                         {data.map((item) => (
                             <Col className="mb-3" xs={12} md={6} lg={4} xl={3} key={item.id}>
-                            <Card className="py-3 px-4 h-100">
-                                <CardTitle className="text-center">Day: {item.day}</CardTitle>
-                                <CardText>
-                                <p>Weight: {item.weight}</p>
-                                <p>Meal 1: {item.meal1}</p>
-                                <img className="w-100" src={item.img1} alt="" />
-                                <p>Snack: {item.snack}</p>
-                                <p>Meal 2: {item.meal2}</p>
-                                <img className="w-100" src={item.img2} alt="" />
-                                </CardText>
-                            </Card>
+                                <Card className="py-3 px-4 h-100">
+                                    <CardTitle className="text-center">Day: {item.day}</CardTitle>
+                                    <CardText>
+                                        <p><b>น้ำหนัก :</b> {item.weight}</p>
+                                        <p><b>ข้าวเที่ยง :</b> {item.meal1}</p>
+                                        <div className="d-flex justify-content-center">
+                                            <img className="w-50 my-3" src={item.img1} alt="" />
+                                        </div>
+                                        <p><b>ขนม ผลไม้ :</b> {item.snack}</p>
+                                        <p><b>ข้าวเย็น :</b> {item.meal2}</p>
+                                        <div className="d-flex justify-content-center">
+                                            <img className="w-50 my-3" src={item.img2} alt="" />
+                                        </div>
+                                    </CardText>
+                                </Card>
                             </Col>
-                        ))}                    
+                        ))}
                     </Row>
                 ) : (
                     <p>Loading...</p> // Placeholder while data is being fetched
