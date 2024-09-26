@@ -3,7 +3,7 @@
 import Navbars from "@/components/Navbars/Navbars";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, CardTitle, CardText, Cardtitle } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardTitle, CardText, } from 'react-bootstrap';
 
 interface FoodData {
     day: string;
