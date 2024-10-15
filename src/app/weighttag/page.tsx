@@ -3,11 +3,12 @@
 import Navbars from "@/components/Navbars/Navbars";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, CardTitle, CardText, } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardTitle, CardText } from 'react-bootstrap';
 
 interface FoodData {
     day: string;
     weight: number;
+    cm: string;
     meal1: string;
     img1: string;
     snack: string;
@@ -44,7 +45,8 @@ const YourComponent = () => {
                                 <Card className="py-3 px-4 h-100">
                                     <CardTitle className="text-center">Day: {item.day}</CardTitle>
                                     <CardText>
-                                        <p><b>น้ำหนัก :</b> {item.weight}</p>
+                                        <p><b>น้ำหนัก :</b> {item.weight} kg</p>
+                                        <p><b>รอบเอว :</b> {item.cm} cm</p>
                                         <p><b>ข้าวเที่ยง :</b> {item.meal1}</p>
                                         <div className="d-flex justify-content-center">
                                             <img className="w-50 my-3" src={item.img1} alt="" />
