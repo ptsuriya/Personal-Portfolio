@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Kanit, Geist } from "next/font/google";
-import "bootstrap/dist/css/bootstrap.css";
-import BootstrapClient from "@/components/BootstrapClient";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +28,6 @@ export default function RootLayout({
 
 
         {children}
-        <BootstrapClient/>
         </body>
     </html>
   );

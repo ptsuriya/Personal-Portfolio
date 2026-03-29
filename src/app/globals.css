@@ -5,6 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* Animations */
+  --animate-popout:    popout    0.45s ease-out forwards;
+  --animate-shoot-out: shoot-out 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-box-shake: box-shake 0.5s ease-in-out 2;
+
   /* Honey Bear Palette */
   --color-bg: #FDF6EC;
   --color-surface: #FFF0CC;
@@ -110,38 +115,39 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Honey Bear Light Theme */
+  --background: oklch(0.972 0.018 82);      /* #FDF6EC cream */
+  --foreground: oklch(0.230 0.063 48);      /* #3D1F00 dark brown */
+  --card: oklch(0.957 0.048 82);            /* #FFF0CC honey light */
+  --card-foreground: oklch(0.230 0.063 48);
+  --popover: oklch(0.957 0.048 82);
+  --popover-foreground: oklch(0.230 0.063 48);
+  --primary: oklch(0.592 0.115 57);         /* #C07B2A honey accent */
+  --primary-foreground: oklch(0.972 0.018 82);
+  --secondary: oklch(0.845 0.072 57);       /* #F5C9A0 soft peach */
+  --secondary-foreground: oklch(0.230 0.063 48);
+  --muted: oklch(0.957 0.048 82);
+  --muted-foreground: oklch(0.464 0.075 52); /* #8B5E3C medium brown */
+  --accent: oklch(0.845 0.072 57);
+  --accent-foreground: oklch(0.230 0.063 48);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.875 0.055 75);          /* #E8C99A honey border */
+  --input: oklch(0.957 0.048 82);
+  --ring: oklch(0.592 0.115 57);
+  --chart-1: oklch(0.592 0.115 57);
+  --chart-2: oklch(0.845 0.072 57);
+  --chart-3: oklch(0.464 0.075 52);
+  --chart-4: oklch(0.957 0.048 82);
+  --chart-5: oklch(0.230 0.063 48);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.957 0.048 82);
+  --sidebar-foreground: oklch(0.230 0.063 48);
+  --sidebar-primary: oklch(0.592 0.115 57);
+  --sidebar-primary-foreground: oklch(0.972 0.018 82);
+  --sidebar-accent: oklch(0.845 0.072 57);
+  --sidebar-accent-foreground: oklch(0.230 0.063 48);
+  --sidebar-border: oklch(0.875 0.055 75);
+  --sidebar-ring: oklch(0.592 0.115 57);
 }
 
 .dark {
@@ -177,6 +183,43 @@ p, h1, h2, h3, h4, h5, h6 {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+/* หมีพุ่งออกจากกล่อง — เริ่มจากตำแหน่งกล่อง แล้วโผล่ขึ้น bounce */
+@keyframes shoot-out {
+  0%   { transform: translateY(140px) scale(0.2); opacity: 0; }
+  55%  { transform: translateY(-20px) scale(1.15); opacity: 1; }
+  75%  { transform: translateY(10px) scale(0.95); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ดอกไม้ไฟ fade in + scale */
+@keyframes popout {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Infinite marquee scroll */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Shiny text sweep */
+@keyframes shiny-sweep {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* กล่องเขย่า */
+@keyframes box-shake {
+  0%, 100% { transform: rotate(0deg); }
+  20%       { transform: rotate(-4deg); }
+  40%       { transform: rotate(4deg); }
+  60%       { transform: rotate(-3deg); }
+  80%       { transform: rotate(3deg); }
+}
+
 
 @layer base {
   * {

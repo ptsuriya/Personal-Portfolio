@@ -1,74 +1,69 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
-import { Container } from 'react-bootstrap';
-import './Loading.css';
-import Image from 'next/image'
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-interface LoadingProps { }
-
-const Loading: React.FC<LoadingProps> = () => {
-  const router = useRouter();
-  const [showText, setShowText] = useState(true);
-  const [showBox, setShowBox] = useState(true);
+export default function LoadingScreen() {
+  const [phase, setPhase] = useState<'box' | 'shake' | 'unbox' | 'hidden'>('box');
 
   useEffect(() => {
-    let i = 0;
-    const pollDOM = () => {
-      if (i < 1) {
-        console.log(i);
-        i++;
-        if (i >= 0) {
-          setShowBox(false);
-          
-        }
-      }
-      else{
-        setShowText(false);
-        console.log(showText);
-        console.log('หยุด');
-        router.push('/weighttag');
-      }
-    };
+    // กล่องอยู่ 400ms แล้วเริ่มเขย่า
+    const t1 = setTimeout(() => setPhase('shake'), 400);
+    // เปิดกล่อง หมีพุ่งออก
+    const t2 = setTimeout(() => setPhase('unbox'), 1100);
+    // หายไป
+    const t3 = setTimeout(() => setPhase('hidden'), 2400);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
 
-    const interval = setInterval(pollDOM, 1000);
-    return () => clearInterval(interval);
-  }, [showText]);
+  if (phase === 'hidden') return null;
+
+  const isUnboxed = phase === 'unbox';
+  const isShaking = phase === 'shake';
 
   return (
-    <section className='overflow-hidden'>
-      {showText &&
-        <div className="preload">
+    <div
+      className="fixed inset-0 z-[999] overflow-hidden"
+      style={{ backgroundColor: '#FBB984' }}
+    >
+      {/* Box / Unbox */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%]">
+        <Image
+          src={isUnboxed ? '/image/loader/unbox.png' : '/image/loader/Box.png'}
+          width={300}
+          height={300}
+          alt="loading box"
+          className={`drop-shadow-lg ${isShaking ? 'animate-box-shake' : ''}`}
+          priority
+        />
+      </div>
 
-          {showBox ? 
-          <Image className='pic-box'
-            src="/image/loader/Box.png"
-            width={300}
-            height={300}
-            alt="Picture of the author" /> : 
-            <Image className='pic-unbox'
-              src="/image/loader/unbox.png"
-              width={300}
-              height={300}
-              alt="Picture of the author" />}
-          {showBox ? <div></div> :           
-          <Image className='pic-firework'
-              src="/image/loader/firework.png"
-              width={325}
-              height={325}
-              alt="Picture of the author" /> }
-          {showBox ? <div></div> :           
-          <Image className='pic-inbox'
-              src="/image/loader/inbox.png"
-              width={275}
-              height={275}
-              alt="Picture of the author" /> }
-
-
+      {/* Firework */}
+      {isUnboxed && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%]">
+          <Image
+            src="/image/loader/firework.png"
+            width={325}
+            height={325}
+            alt="firework"
+            className="animate-popout"
+            priority
+          />
         </div>
-      }
-    </section>
-  );
-};
+      )}
 
-export default Loading;
+      {/* Bear — พุ่งออกจากกล่อง */}
+      {isUnboxed && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%]">
+          <Image
+            src="/image/loader/inbox.png"
+            width={275}
+            height={275}
+            alt="bear popping out"
+            className="animate-shoot-out"
+            priority
+          />
+        </div>
+      )}
+    </div>
+  );
+}
