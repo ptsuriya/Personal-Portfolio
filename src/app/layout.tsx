@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Kanit } from "next/font/google";
+import { Kanit, Geist } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.css";
 import BootstrapClient from "@/components/BootstrapClient";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const kanit = Kanit({ 
   subsets: ['latin'],
@@ -22,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
+    <html lang="th" className={cn("font-sans", geist.variable)}>
       
       <body className={kanit.className}>
 
