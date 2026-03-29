@@ -66,10 +66,10 @@ export default function HubPage() {
         <GrainyGradient />
         <PillNav />
 
-        <section className="flex flex-1 items-center justify-center px-6 py-8">
-          <div className="grid w-full max-w-[860px] grid-cols-1 gap-5 md:grid-cols-2 md:items-stretch">
+        <section className="flex min-w-0 flex-1 items-center justify-center px-4 py-8 sm:px-6">
+          <div className="grid min-w-0 w-full max-w-[860px] grid-cols-1 gap-5 md:grid-cols-2 md:items-stretch">
             <GlareCard className="rounded-3xl md:h-full">
-              <div className="h-full overflow-hidden rounded-3xl border border-[#E7B2A4]/80 bg-[linear-gradient(180deg,rgba(255,246,242,0.94)_0%,rgba(251,229,221,0.88)_100%)] shadow-[0_24px_60px_rgba(184,108,86,0.12)] backdrop-blur-sm">
+              <div className="h-full min-w-0 overflow-hidden rounded-3xl border border-[#E7B2A4]/80 bg-[linear-gradient(180deg,rgba(255,246,242,0.94)_0%,rgba(251,229,221,0.88)_100%)] shadow-[0_24px_60px_rgba(184,108,86,0.12)] backdrop-blur-sm">
                 <div className="relative h-[240px] overflow-hidden border-b border-[#E7B2A4]/70 sm:h-[280px]">
                   <Image
                     src="/image/Line/profile.jpg"
@@ -82,7 +82,7 @@ export default function HubPage() {
                   <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,rgba(252,237,231,0)_0%,rgba(252,237,231,0.82)_100%)]" />
                 </div>
 
-                <div className="flex flex-col gap-3 p-6 sm:p-7">
+                <div className="flex min-w-0 flex-col gap-3 p-6 sm:p-7">
                   <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#B75E4F] sm:text-[13px]">
                     สวัสดี ฉันชื่อ
                   </p>
@@ -119,12 +119,12 @@ export default function HubPage() {
                     shineColor="#C86858"
                   />
 
-                  <div className="flex flex-nowrap gap-2 overflow-x-auto pt-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="flex w-full max-w-full min-w-0 flex-wrap gap-2 pt-1 sm:flex-nowrap sm:overflow-x-auto sm:[-ms-overflow-style:none] sm:[scrollbar-width:none] sm:[&::-webkit-scrollbar]:hidden">
                     {contactIcons.map((item) => (
                       <span
                         key={item.label}
                         title={item.label}
-                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2B2A3]/80 bg-[#FFF4EE]/85 text-[#8C4D40] shadow-[0_8px_20px_rgba(183,94,79,0.08)] transition-colors hover:bg-[#F7DED5]"
+                        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E2B2A3]/80 bg-[#FFF4EE]/85 text-[#8C4D40] shadow-[0_8px_20px_rgba(183,94,79,0.08)] transition-colors hover:bg-[#F7DED5] sm:h-10 sm:w-10"
                       >
                         {item.icon}
                       </span>
