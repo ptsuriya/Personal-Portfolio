@@ -8,7 +8,8 @@
       "Bash(npx shadcn@latest init -d)",
       "Bash(npx reactbits@latest --help)",
       "Bash(npx react-bits@latest --help)",
-      "Bash(node -e \"const p = require\\(''./node_modules/framer-motion/package.json''\\); console.log\\(''framer-motion:'', p.version\\)\")"
+      "Bash(node -e \"const p = require\\(''./node_modules/framer-motion/package.json''\\); console.log\\(''framer-motion:'', p.version\\)\")",
+      "Bash(find C:GithubPersonal-Portfolio -type f -name *codex* -o -name *CODEX*)"
     ]
   }
 }

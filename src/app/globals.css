@@ -199,6 +199,12 @@ p, h1, h2, h3, h4, h5, h6 {
   100% { transform: scale(1); opacity: 1; }
 }
 
+/* Profile floating like a cloud */
+@keyframes float-cloud {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
 /* Infinite marquee scroll */
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
