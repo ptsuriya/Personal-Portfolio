@@ -32,6 +32,7 @@ export default function PillNav({ items = defaultItems }: PillNavProps) {
             height={30}
             alt="Kuma logo"
             className="object-contain drop-shadow-[0_4px_12px_rgba(154,104,10,0.18)] transition-transform duration-300 hover:scale-[1.03]"
+            style={{ height: 'auto' }}
             priority
           />
         </Link>

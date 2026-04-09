@@ -74,6 +74,7 @@ export default function HubPage() {
                   <Image
                     src="/image/Line/profile.jpg"
                     fill
+                    sizes="(max-width: 768px) 100vw, 430px"
                     alt="Kuma"
                     className="object-cover object-center"
                     priority

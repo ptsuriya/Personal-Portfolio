@@ -18,7 +18,7 @@ export default function CodeworkLayout({ children }: { children: ReactNode }) {
     <div className="relative min-h-screen">
       <GrainyGradient />
       <nav className="sticky top-0 z-50 border-b border-[#E8B8A8]/40 bg-[#FDF0EC]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+        <div className="w-full mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
           <Link href="/">
             <Image
               src="/image/Asset/KUMA.png"
@@ -26,6 +26,7 @@ export default function CodeworkLayout({ children }: { children: ReactNode }) {
               height={30}
               alt="Kuma"
               className="object-contain transition-opacity hover:opacity-75"
+              style={{ height: 'auto' }}
             />
           </Link>
           <div className="flex items-center gap-1">
@@ -48,7 +49,9 @@ export default function CodeworkLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </nav>
-      {children}
+      <div className="flex justify-center">
+        {children}
+      </div>
     </div>
   );
 }
