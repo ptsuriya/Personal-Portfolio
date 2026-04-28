@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import { ArrowRight, BookOpen, Code2, FileText, Layers3, Mail, Phone } from "lucide-react";
 import LoadingScreen from "@/components/LoadingScreen/Loading";
 import PillNav from "@/components/reactbits/PillNav";
 import SplitText from "@/components/reactbits/SplitText";
@@ -11,6 +11,14 @@ import InfiniteMarquee from "@/components/reactbits/InfiniteMarquee";
 import GrainyGradient from "@/components/reactbits/GrainyGradient";
 
 const iconClassName = "h-[18px] w-[18px]";
+
+const navItems = [
+  { href: "/codework", label: "ผลงาน" },
+  { href: "/blog", label: "บทความ" },
+  { href: "/codework/resume", label: "ประวัติ" },
+];
+
+const writingTopics = ["Design-to-Code", "Frontend Notes", "Case Study"];
 
 const contactIcons = [
   {
@@ -64,7 +72,7 @@ export default function HubPage() {
 
       <main className="relative flex min-h-screen flex-col overflow-hidden">
         <GrainyGradient />
-        <PillNav />
+        <PillNav items={navItems} />
 
         <section className="flex min-w-0 flex-1 items-center justify-center px-4 py-8 sm:px-6">
           <div className="grid min-w-0 w-full max-w-[860px] grid-cols-1 gap-5 md:grid-cols-2 md:items-stretch">
@@ -103,9 +111,9 @@ export default function HubPage() {
                   <div className="min-h-[1.9rem] text-[17px] font-medium leading-relaxed text-[#8D4D40] sm:text-[18px]">
                     <TextType
                       texts={[
-                        "หมีนักออกแบบ ที่แต่งเพลงเป็น(นิดหน่อย)",
                         "UI Designer & Frontend Developer",
-                        "Pop R&B Songwriter",
+                        "Design-to-Code Creator",
+                        "Next.js / React / Tailwind CSS",
                       ]}
                       speed={52}
                       pauseDuration={2200}
@@ -113,12 +121,29 @@ export default function HubPage() {
                   </div>
 
                   <ShinyText
-                    text="สร้างประสบการณ์ดิจิทัล และเนื้อเพลงที่รู้สึก"
+                    text="ออกแบบ interface ให้ชัด และพัฒนาให้ใช้งานได้จริง"
                     className="max-w-[30rem] text-[15px] leading-7 tracking-[0.005em] sm:text-base"
                     speed={3.5}
                     color="#915243"
                     shineColor="#C86858"
                   />
+
+                  <div className="grid gap-2 pt-1 sm:grid-cols-2">
+                    <Link
+                      href="/codework"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#2A1010] px-4 py-2 text-sm font-semibold text-[#FAD4C0] shadow-[0_10px_24px_rgba(42,16,16,0.18)] transition-all hover:-translate-y-0.5 hover:bg-[#C86858] hover:text-white"
+                    >
+                      <Layers3 className="h-4 w-4" aria-hidden="true" />
+                      ดูผลงาน
+                    </Link>
+                    <Link
+                      href="/blog"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#E2B2A3]/80 bg-[#FFF4EE]/85 px-4 py-2 text-sm font-semibold text-[#8C4D40] shadow-[0_8px_20px_rgba(183,94,79,0.08)] transition-all hover:-translate-y-0.5 hover:bg-[#F7DED5]"
+                    >
+                      <BookOpen className="h-4 w-4" aria-hidden="true" />
+                      อ่านบทความ
+                    </Link>
+                  </div>
 
                   <div className="flex w-full max-w-full min-w-0 flex-wrap gap-2 pt-1 sm:flex-nowrap sm:overflow-x-auto sm:[-ms-overflow-style:none] sm:[scrollbar-width:none] sm:[&::-webkit-scrollbar]:hidden">
                     {contactIcons.map((item) => (
@@ -211,41 +236,46 @@ export default function HubPage() {
                 </GlareCard>
               </Link>
 
-              <Link href="/musicwork" className="group block h-full">
+              <Link href="/blog" className="group block h-full">
                 <GlareCard className="h-full rounded-2xl">
-                  <div
-                    className="relative flex h-full overflow-hidden rounded-2xl px-5 py-5"
-                    style={{
-                      background: "linear-gradient(135deg, #C86858 0%, #9A4858 50%, #6A3048 100%)",
-                    }}
-                  >
-                    <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full border-[14px] border-white/10" />
-                    <div className="absolute -top-4 -right-4 h-20 w-20 rounded-full border-[8px] border-white/10" />
-                    <div className="absolute top-2 right-2 h-6 w-6 rounded-full bg-white/10" />
+                  <div className="relative flex h-full overflow-hidden rounded-2xl border border-[#E8B8A8]/60 bg-[linear-gradient(135deg,rgba(255,240,204,0.92)_0%,rgba(250,228,220,0.88)_48%,rgba(253,246,236,0.95)_100%)] px-5 py-5 shadow-[0_18px_42px_rgba(184,108,86,0.12)]">
+                    <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full border border-[#C07B2A]/20" />
+                    <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-[linear-gradient(90deg,transparent,#C86858,transparent)] opacity-35" />
 
-                    <div className="relative flex h-full w-full flex-col">
-                      <div>
-                        <div className="mb-1 flex items-center gap-2">
-                          <span className="text-xl">🎵</span>
-                          <h2 className="text-base font-bold text-white">Songwriting</h2>
-                        </div>
-                        <p className="text-xs text-white/70">Pop R&B • เพลงของฉัน • เบื้องหลัง</p>
-                        <div className="mt-2.5 flex gap-1.5">
-                          {["Pop", "R&B", "Thai"].map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full bg-white/15 px-2 py-0.5 text-[9px] text-white/80"
-                            >
-                              {tag}
+                    <div className="relative flex h-full w-full flex-col gap-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="mb-1 flex items-center gap-2">
+                            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#2A1010] text-[#FAD4C0]">
+                              <FileText className="h-4 w-4" aria-hidden="true" />
                             </span>
-                          ))}
+                            <h2 className="text-base font-bold text-[#2A1010]">Writing Hub</h2>
+                          </div>
+                          <p className="text-xs leading-relaxed text-[#8B5E3C]">
+                            บันทึก design, frontend และ workflow ที่เอาไปใช้ต่อได้
+                          </p>
                         </div>
+                        <span className="rounded-full border border-[#C86858]/20 bg-white/35 px-2.5 py-1 font-mono text-[9px] text-[#C86858]">
+                          NOTES
+                        </span>
+                      </div>
+
+                      <div className="grid gap-1.5">
+                        {writingTopics.map((topic) => (
+                          <div
+                            key={topic}
+                            className="flex items-center justify-between rounded-xl border border-[#E8B8A8]/45 bg-white/30 px-3 py-2 text-xs text-[#6F4638]"
+                          >
+                            <span>{topic}</span>
+                            <Code2 className="h-3.5 w-3.5 text-[#C07B2A]" aria-hidden="true" />
+                          </div>
+                        ))}
                       </div>
 
                       <div className="mt-auto flex justify-end pt-4">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/14 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(60,22,44,0.22)] transition-all duration-300 group-hover:-translate-y-[1px] group-hover:bg-[#FFE4D6] group-hover:text-[#7A3048] group-hover:shadow-[0_12px_28px_rgba(255,228,214,0.26)]">
-                          <span>ฟัง</span>
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        <span className="inline-flex items-center gap-2 rounded-full border border-[#E8B8A8]/70 bg-[#2A1010] px-4 py-2 text-sm font-semibold text-[#FAD4C0] shadow-[0_10px_24px_rgba(42,16,16,0.16)] transition-all duration-300 group-hover:-translate-y-[1px] group-hover:bg-[#C86858] group-hover:text-white group-hover:shadow-[0_12px_28px_rgba(200,104,88,0.22)]">
+                          <span>อ่านบทความ</span>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                         </span>
                       </div>
                     </div>
@@ -257,7 +287,7 @@ export default function HubPage() {
         </section>
 
         <InfiniteMarquee
-          text="UI Designer • Songwriter • Frontend Dev • Kuma • Figma • Next.js • Pop R&B"
+          text="UI/UX Design • Frontend Dev • Kuma • Figma • Next.js • React • Tailwind CSS • Design System • Case Study"
           className="py-2"
           speed={28}
           color="#C86858"

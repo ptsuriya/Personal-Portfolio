@@ -13,7 +13,9 @@ interface PillNavProps {
 }
 
 const defaultItems: NavItem[] = [
+  { href: '/codework', label: 'ผลงาน' },
   { href: '/blog', label: 'บทความ' },
+  { href: '/codework/resume', label: 'ประวัติ' },
 ]
 
 export default function PillNav({ items = defaultItems }: PillNavProps) {

@@ -10,13 +10,13 @@ export default function BlogPage() {
         </p>
         <h1 className="text-4xl font-bold text-[#3D1F00]">บทความ</h1>
         <p className="text-[#8B5E3C] mt-3">
-          เรื่องราวเกี่ยวกับ Design, Dev และชีวิต
+          บันทึกเรื่อง Design, Frontend, Workflow และการสร้างเว็บให้ใช้งานได้จริง
         </p>
       </div>
 
       {/* Tag filter placeholder */}
       <div className="flex flex-wrap gap-2 mb-8">
-        {["ทั้งหมด", "#design", "#music", "#dev", "#life"].map((tag) => (
+        {["ทั้งหมด", "#design", "#frontend", "#case-study", "#workflow", "#tools"].map((tag) => (
           <button
             key={tag}
             className="bg-[#FFF0CC] border border-[#E8C99A] text-[#8B5E3C] text-sm px-3 py-1 rounded-full hover:bg-[#F5C9A0] transition-colors"
@@ -30,7 +30,7 @@ export default function BlogPage() {
       {posts.length === 0 ? (
         <div className="text-center py-20 text-[#8B5E3C]">
           <p className="text-4xl mb-4">📝</p>
-          <p>ยังไม่มีบทความ — เร็วๆ นี้</p>
+          <p>กำลังเขียนบทความแรกเกี่ยวกับ design-to-code workflow</p>
         </div>
       ) : (
         <div className="space-y-6">

@@ -14,19 +14,20 @@ const kanit = Kanit({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kumadesign.dev"),
   title: {
-    default: "KUMA Portfolio | UI Designer, Frontend Developer, Songwriter",
+    default: "KUMA Portfolio | UI/UX Designer & Frontend Developer",
     template: "%s | KUMA Portfolio",
   },
   description:
-    "Portfolio of KUMA, a UI Designer, Frontend Developer, and Pop R&B Songwriter creating digital experiences and heartfelt lyrics.",
+    "Portfolio and writing hub of KUMA, a UI/UX Designer and Frontend Developer creating thoughtful digital products with React, Next.js, and design systems.",
   keywords: [
     "KUMA",
     "portfolio",
+    "UI/UX Designer",
     "UI Designer",
     "Frontend Developer",
+    "Design System",
     "Next.js",
     "React",
-    "songwriter",
     "Thailand",
   ],
   authors: [{ name: "KUMA" }],
@@ -36,9 +37,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "KUMA Portfolio | UI Designer, Frontend Developer, Songwriter",
+    title: "KUMA Portfolio | UI/UX Designer & Frontend Developer",
     description:
-      "Explore KUMA's portfolio in design, frontend development, and music.",
+      "Explore KUMA's design and frontend portfolio, case studies, and writing.",
     url: "/",
     siteName: "KUMA Portfolio",
     locale: "th_TH",
@@ -54,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KUMA Portfolio | UI Designer, Frontend Developer, Songwriter",
+    title: "KUMA Portfolio | UI/UX Designer & Frontend Developer",
     description:
-      "Explore KUMA's portfolio in design, frontend development, and music.",
+      "Explore KUMA's design and frontend portfolio, case studies, and writing.",
     images: ["/image/Line/profile.jpg"],
   },
   robots: {
