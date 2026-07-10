@@ -2,16 +2,16 @@ export default function GrainyGradient() {
   return (
     <div className="fixed inset-0 -z-10" aria-hidden="true">
       {/* Base */}
-      <div className="absolute inset-0" style={{ background: '#FDF0EC' }} />
+      <div className="absolute inset-0" style={{ background: '#FDF6EC' }} />
 
       {/* Gradient orbs — more saturated */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 60% 55% at 8% 28%,  #F5A898AA 0%, transparent 65%),
-            radial-gradient(ellipse 50% 45% at 92% 8%,  #FAC8B888 0%, transparent 60%),
-            radial-gradient(ellipse 45% 50% at 55% 96%, #F0A89066 0%, transparent 60%)
+            radial-gradient(ellipse 55% 48% at 4% 20%,  #F5C9A088 0%, transparent 68%),
+            radial-gradient(ellipse 46% 38% at 96% 8%,  #E8B8A866 0%, transparent 64%),
+            radial-gradient(ellipse 44% 42% at 55% 100%, #C07B2A33 0%, transparent 64%)
           `,
         }}
       />

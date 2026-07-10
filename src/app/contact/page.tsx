@@ -1,5 +1,5 @@
 'use client';
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Mail, Phone, Send, Calendar, MessageCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { submitContact, type ContactFormState } from './actions';
@@ -7,10 +7,16 @@ import { submitContact, type ContactFormState } from './actions';
 const initialState: ContactFormState = { ok: false };
 
 export default function ContactPage() {
+  const [selectedProjectType, setSelectedProjectType] = useState('');
   const [state, formAction, isPending] = useActionState<ContactFormState, FormData>(
     submitContact,
     initialState,
   );
+
+  useEffect(() => {
+    const type = new URLSearchParams(window.location.search).get('type');
+    if (type) setSelectedProjectType(type);
+  }, []);
 
   const fieldErrors = state.fieldErrors ?? {};
   const submitted = state.ok && !isPending;
@@ -18,10 +24,10 @@ export default function ContactPage() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       <header className="mb-10">
-        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">Contact</p>
-        <h1 className="text-3xl font-bold text-[#2A1010] sm:text-4xl">เริ่มโปรเจกต์กับ KUMA</h1>
+        <p className="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">Start a project</p>
+        <h1 className="text-3xl font-bold tracking-[-0.025em] text-[#2A1010] sm:text-5xl">ขอประเมินราคาเว็บไซต์</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#7A4838] sm:text-base">
-          กรอกฟอร์มสั้นๆ บอกเล่าโปรเจกต์ของคุณ ผมจะตอบกลับภายใน 1-2 วันทำการพร้อมข้อเสนอเบื้องต้น
+          กรอกฟอร์มสั้นๆ บอกโจทย์ของเว็บไซต์ ทีมจะตอบกลับภายใน 1-2 วันทำการพร้อมแนวทางและข้อเสนอเบื้องต้น
           ไม่มีค่าใช้จ่ายในการให้คำปรึกษาเบื้องต้น
         </p>
       </header>
@@ -33,9 +39,9 @@ export default function ContactPage() {
               <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2A1010] text-[#FAD4C0]">
                 <CheckCircle2 className="h-8 w-8" />
               </span>
-              <h2 className="text-2xl font-bold text-[#2A1010]">ขอบคุณครับ!</h2>
-              <p className="max-w-md text-sm leading-relaxed text-[#7A4838]">
-                ได้รับข้อความแล้ว — ผมจะตอบกลับภายใน 1-2 วันทำการ
+                <h2 className="text-2xl font-bold text-[#2A1010]">ได้รับข้อความแล้ว</h2>
+                <p className="max-w-md text-sm leading-relaxed text-[#7A4838]">
+                ทีม kumadesign.dev จะตอบกลับภายใน 1-2 วันทำการ
                 ในระหว่างนี้คุณสามารถดู{' '}
                 <Link href="/work" className="font-semibold text-[#C86858] underline-offset-4 hover:underline">
                   ผลงานที่ผ่านมา
@@ -78,16 +84,17 @@ export default function ContactPage() {
                   id="projectType"
                   name="projectType"
                   required
-                  defaultValue=""
+                  value={selectedProjectType}
+                  onChange={(event) => setSelectedProjectType(event.target.value)}
                   className="rounded-xl border border-[#E8B8A8] bg-white/80 px-4 py-3 text-sm text-[#2A1010] outline-none transition-colors focus:border-[#C86858] focus:bg-white"
                 >
                   <option value="" disabled>
-                    เลือกประเภทงาน
+                    เลือกประเภทเว็บไซต์ที่ต้องการ
                   </option>
-                  <option value="ui-ux">🎨 UI/UX Design</option>
-                  <option value="frontend">⚡ Frontend Development</option>
-                  <option value="fullstack">🚀 Full-Stack Package</option>
-                  <option value="consult">💬 Consulting / ปรึกษา</option>
+                  <option value="frontend">เว็บไซต์บริษัท / Landing Page</option>
+                  <option value="fullstack">Web App / ระบบหลังบ้าน</option>
+                  <option value="ui-ux">วางโครงสร้างและออกแบบ UI/UX</option>
+                  <option value="consult">ปรึกษาแนวทางเว็บไซต์</option>
                   <option value="other">อื่นๆ</option>
                 </select>
                 {fieldErrors.projectType && (
@@ -121,7 +128,7 @@ export default function ContactPage() {
                   name="message"
                   required
                   rows={6}
-                  placeholder="เป้าหมายโปรเจกต์, กลุ่มเป้าหมาย, อ้างอิงเว็บที่ชอบ..."
+                  placeholder="ธุรกิจของคุณคืออะไร, ต้องการให้เว็บช่วยเรื่องไหน, มีเว็บอ้างอิงหรือไม่..."
                   className="resize-none rounded-xl border border-[#E8B8A8] bg-white/80 px-4 py-3 text-sm text-[#2A1010] outline-none transition-colors focus:border-[#C86858] focus:bg-white"
                 />
                 {fieldErrors.message && (
@@ -139,11 +146,11 @@ export default function ContactPage() {
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#2A1010] px-6 py-3.5 text-sm font-semibold text-[#FAD4C0] transition-all hover:-translate-y-0.5 hover:bg-[#C86858] hover:text-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                {isPending ? 'กำลังส่ง...' : 'ส่งข้อความ'}
+                {isPending ? 'กำลังส่ง...' : 'ขอประเมินราคา'}
               </button>
 
               <p className="text-xs text-[#9A6858]">
-                ข้อมูลของคุณจะถูกส่งโดยตรงไปที่ ptsuriyarangsri@gmail.com — จะไม่เก็บไว้บนเซิร์ฟเวอร์
+              ข้อมูลจะถูกส่งตรงไปที่ทีม kumadesign.dev เพื่อใช้ประเมินงานเท่านั้น
               </p>
             </form>
           )}
@@ -158,14 +165,14 @@ export default function ContactPage() {
           />
           <ContactCard
             icon={<MessageCircle className="h-5 w-5" />}
-            label="LINE"
+            label="LINE / Chat"
             value="@kuma.design"
             href="https://line.me/ti/p/~kuma.design"
           />
           <ContactCard
             icon={<Phone className="h-5 w-5" />}
             label="โทรศัพท์"
-            value="ขอเบอร์ผ่าน LINE/Email"
+            value="นัดหมายผ่านอีเมล"
             href="mailto:ptsuriyarangsri@gmail.com"
           />
 
@@ -176,7 +183,7 @@ export default function ContactPage() {
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#C86858] text-white">
               <Calendar className="h-5 w-5" />
             </span>
-            <h3 className="mt-3 text-lg font-bold">นัดคุย 30 นาที (ฟรี)</h3>
+            <h3 className="mt-3 text-lg font-bold">คุย brief 30 นาที (ฟรี)</h3>
             <p className="mt-1 text-xs leading-relaxed text-[#E8C4A0]">
               ถ้าอยากคุยก่อนตัดสินใจ จองเวลานัดวิดีโอคอลได้ฟรี ไม่มีค่าใช้จ่าย ไม่กดดัน
             </p>

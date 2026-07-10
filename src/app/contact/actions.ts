@@ -32,10 +32,10 @@ function rateLimit(key: string, windowMs = 60_000, max = 3): boolean {
 }
 
 const PROJECT_LABELS: Record<string, string> = {
-  'ui-ux': 'UI/UX Design',
-  frontend: 'Frontend Development',
-  fullstack: 'Full-Stack Package',
-  consult: 'Consulting / ปรึกษา',
+  'ui-ux': 'Website UI/UX Design',
+  frontend: 'Corporate Website / Landing Page',
+  fullstack: 'Web App / Internal System',
+  consult: 'Website Consultation',
   other: 'อื่นๆ',
 };
 
@@ -73,9 +73,9 @@ export async function submitContact(
 
   const resend = getResend();
 
-  const subject = `[KUMA Freelance] ${PROJECT_LABELS[parsed.data.projectType]} — ${parsed.data.name}`;
+  const subject = `[kumadesign.dev] ${PROJECT_LABELS[parsed.data.projectType]} — ${parsed.data.name}`;
   const text = [
-    `New inquiry from KUMA Freelance website`,
+    `New project inquiry from kumadesign.dev`,
     ``,
     `Name: ${parsed.data.name}`,
     `Email: ${parsed.data.email}`,
@@ -91,15 +91,15 @@ export async function submitContact(
 
   if (!resend) {
     console.warn('[contact] RESEND_API_KEY not set — logging submission instead.');
-    console.log('---NEW CONTACT SUBMISSION---');
+    console.log('---NEW KUMADESIGN.DEV PROJECT INQUIRY---');
     console.log(text);
-    console.log('---END---');
+    console.log('---END KUMADESIGN.DEV INQUIRY---');
     return { ok: true };
   }
 
   try {
     await resend.emails.send({
-      from: `KUMA Freelance <${CONTACT_FROM}>`,
+      from: `kumadesign.dev <${CONTACT_FROM}>`,
       to: CONTACT_TO,
       replyTo: parsed.data.email,
       subject,

@@ -16,10 +16,10 @@ export default function ProcessPage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
       <header className="mb-10">
-        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">How I Work</p>
-        <h1 className="text-3xl font-bold text-[#2A1010] sm:text-4xl">ขั้นตอนการทำงาน</h1>
+        <p className="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">Delivery process</p>
+        <h1 className="text-3xl font-bold tracking-[-0.025em] text-[#2A1010] sm:text-5xl">ทำงานเป็นระบบ ตั้งแต่โจทย์ถึง production</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#7A4838] sm:text-base">
-          กระบวนการ 4 ขั้นตอนที่ใช้กับทุกโปรเจกต์ — โปร่งใส ส่ง deliverable ทุกขั้น และปรับเร็วเมื่อเจอข้อมูลใหม่
+          กระบวนการ 4 ขั้นตอนที่ช่วยให้ทั้งทีมเห็นภาพเดียวกัน ตัดสินใจได้เร็ว และตรวจสอบงานได้ตลอดทาง
         </p>
       </header>
 
@@ -46,14 +46,14 @@ export default function ProcessPage() {
       </section>
 
       <section className="rounded-3xl border border-[#E8B8A8]/60 bg-[linear-gradient(135deg,rgba(250,228,220,0.8)_0%,rgba(255,246,242,0.7)_100%)] p-8 text-center backdrop-blur-sm">
-        <p className="text-3xl">💬</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C86858]">Open conversation</p>
         <h3 className="mt-2 text-xl font-bold text-[#2A1010]">มีคำถามอื่น?</h3>
-        <p className="mt-2 text-sm text-[#7A4838]">ทักมาคุยฟรี ไม่มีค่าใช้จ่าย</p>
+        <p className="mt-2 text-sm text-[#7A4838]">ส่งโจทย์เบื้องต้นมาให้ทีมช่วยประเมินได้</p>
         <Link
           href="/contact"
           className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#2A1010] px-6 py-3 text-sm font-semibold text-[#FAD4C0] transition-all hover:-translate-y-0.5 hover:bg-[#C86858] hover:text-white"
         >
-          ติดต่อ KUMA
+          คุยเรื่องโปรเจกต์
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

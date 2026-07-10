@@ -40,7 +40,7 @@ export default async function CaseStudyPage({ params }: Props) {
         className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#9A5848] transition-colors hover:text-[#C86858]"
       >
         <ArrowLeft className="h-4 w-4" />
-        กลับไปดูผลงานทั้งหมด
+        กลับไปดู solution ทั้งหมด
       </Link>
 
       <header className="mb-10">
@@ -140,13 +140,13 @@ export default async function CaseStudyPage({ params }: Props) {
 
       <div className="mt-10 rounded-3xl border border-[#E8B8A8]/60 bg-[linear-gradient(135deg,#2A1010_0%,#4A201B_100%)] p-8 text-center text-[#FAD4C0]">
         <p className="text-2xl">🤝</p>
-        <h3 className="mt-2 text-xl font-bold">มีโปรเจกต์คล้ายๆ กัน?</h3>
-        <p className="mt-1 text-sm text-[#E8C4A0]">คุยฟรี ตอบกลับใน 1-2 วัน</p>
+        <h3 className="mt-2 text-xl font-bold">มีโจทย์ใกล้เคียงกัน?</h3>
+        <p className="mt-1 text-sm text-[#E8C4A0]">คุยเบื้องต้นกับทีมได้ ตอบกลับใน 1-2 วัน</p>
         <Link
           href="/contact"
           className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#C86858] px-6 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#D87868]"
         >
-          ติดต่อ KUMA
+          ติดต่อ kumadesign.dev
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
