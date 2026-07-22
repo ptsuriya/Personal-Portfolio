@@ -14,10 +14,9 @@ interface PillNavProps {
 }
 
 const defaultItems: NavItem[] = [
-  { href: '/work', label: 'ผลงาน' },
   { href: '/services', label: 'บริการ' },
+  { href: '/work', label: 'โซลูชัน' },
   { href: '/process', label: 'กระบวนการ' },
-  { href: '/about', label: 'เกี่ยวกับเรา' },
 ]
 
 export default function PillNav({ items = defaultItems }: PillNavProps) {
@@ -32,15 +31,16 @@ export default function PillNav({ items = defaultItems }: PillNavProps) {
     >
       <nav aria-label="เมนูหลัก" className="flex max-w-full items-center gap-1 overflow-x-auto rounded-2xl border border-[#C88D14]/75 bg-[linear-gradient(180deg,rgba(255,243,206,0.98)_0%,rgba(238,198,93,0.95)_100%)] px-2 py-2 shadow-[0_14px_34px_rgba(154,104,10,0.2)] backdrop-blur-xl sm:gap-2 sm:rounded-full sm:px-4 sm:py-3">
         <Link href="/" className="shrink-0 px-2 sm:px-1">
-          <Image
-            src="/image/Asset/KUMA.png"
-            width={76}
-            height={38}
-            alt="kumadesign.dev"
-            className="object-contain drop-shadow-[0_4px_12px_rgba(154,104,10,0.18)] transition-transform duration-300 hover:scale-[1.03]"
-            style={{ height: 'auto' }}
-            priority
-          />
+          <span className="relative block h-[37px] w-[74px] sm:h-[42px] sm:w-[84px]">
+            <Image
+              src="/image/Asset/KUMA.png"
+              alt="KUMA"
+              fill
+              sizes="(min-width: 640px) 84px, 74px"
+              className="object-contain drop-shadow-[0_4px_12px_rgba(154,104,10,0.18)] transition-transform duration-300 hover:scale-[1.04]"
+              priority
+            />
+          </span>
         </Link>
 
         <div className="mx-1 h-5 w-px shrink-0 bg-[#D9A63D]" />
@@ -48,6 +48,7 @@ export default function PillNav({ items = defaultItems }: PillNavProps) {
         {items.map((item, i) => (
           <motion.div
             key={item.href}
+            className={item.href === '/process' ? 'hidden sm:block' : undefined}
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15 + i * 0.08, duration: 0.4, ease: 'easeOut' }}

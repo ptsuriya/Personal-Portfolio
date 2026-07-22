@@ -43,6 +43,7 @@
     font-family: var(--font-sans);
     color: var(--color-text);
     line-height: 1.5;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
   /*

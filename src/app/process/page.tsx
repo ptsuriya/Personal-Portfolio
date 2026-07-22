@@ -23,7 +23,7 @@ export default function ProcessPage() {
         </p>
       </header>
 
-      <section className="mb-16">
+      <section id="faq" className="mb-16">
         <Timeline steps={processSteps} />
       </section>
 

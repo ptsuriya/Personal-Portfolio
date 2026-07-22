@@ -23,6 +23,7 @@ export default function ServicesPage() {
         {services.map((s) => (
           <article
             key={s.slug}
+            id={s.slug}
             className="flex h-full flex-col gap-4 rounded-3xl border border-[#E8B8A8]/60 bg-[#FFF6F0]/70 p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-[#D8987A] hover:shadow-[0_20px_50px_rgba(184,108,86,0.15)]"
           >
             <span className="text-4xl">{s.icon}</span>

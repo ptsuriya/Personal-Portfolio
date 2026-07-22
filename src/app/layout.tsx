@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Kanit, Geist } from "next/font/google";
 import "./globals.css";
@@ -55,10 +55,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/image/Line/profile.jpg",
+        url: "/image/Asset/KUMA.png",
         width: 1200,
         height: 630,
-    alt: "kumadesign.dev — รับเขียนเว็บไซต์และเว็บแอป",
+        alt: "KUMA — รับออกแบบและพัฒนาเว็บ",
       },
     ],
   },
@@ -66,18 +66,23 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "kumadesign.dev — รับเขียนเว็บไซต์และเว็บแอป",
     description: "รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ",
-    images: ["/image/Line/profile.jpg"],
+    images: ["/image/Asset/KUMA.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: "/image/Line/profile.jpg",
-    shortcut: "/image/Line/profile.jpg",
-    apple: "/image/Line/profile.jpg",
+    icon: "/image/Asset/KUMA.png",
+    shortcut: "/image/Asset/KUMA.png",
+    apple: "/image/Asset/KUMA.png",
   },
   category: "business",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const jsonLd = {
@@ -88,7 +93,7 @@ const jsonLd = {
       "@id": "https://kumadesign.dev/#organization",
       name: "kumadesign.dev",
       url: "https://kumadesign.dev",
-      image: "https://kumadesign.dev/image/Line/profile.jpg",
+      image: "https://kumadesign.dev/image/Asset/KUMA.png",
       email: "mailto:ptsuriyarangsri@gmail.com",
       description: "Web development studio for business websites and web applications",
       knowsAbout: [
