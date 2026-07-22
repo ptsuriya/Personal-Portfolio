@@ -90,9 +90,90 @@ const skillGroups = [
     ],
   },
   {
+    id: 'testing',
+    icon: MonitorCheck,
+    eyebrow: '03 / BROWSER TESTING',
+    title: 'Playwright สำหรับ browser QA',
+    description: 'ใช้สำรวจเว็บไซต์, สร้าง E2E test, ตรวจ interaction และ review ความเสถียรของชุดทดสอบ Playwright',
+    items: [
+      {
+        name: 'playwright-cli',
+        source: 'microsoft / playwright-cli',
+        href: 'https://www.skills.sh/microsoft/playwright-cli/playwright-cli',
+        role: 'ควบคุม browser จาก terminal ด้วยคำสั่งกว่า 40 แบบ เช่น เปิดหน้า, click, fill form, snapshot, console, network และ tracing',
+        install: 'npx skills add https://github.com/microsoft/playwright-cli --skill playwright-cli',
+        use: 'เรียกใช้เมื่ออยากตรวจ flow แบบ interactive อย่างรวดเร็ว เช่น “ใช้ playwright-cli เปิด /blog/rbruskill ตรวจสารบัญและถ่าย snapshot ก่อนและหลังคลิก”',
+        note: 'Skill นี้เป็นคู่มือให้ agent ใช้ CLI ไม่ได้ติดตั้งตัวคำสั่งให้เอง; ถ้าไม่มีคำสั่งให้ตรวจ npx ก่อน แล้วใช้ `npx playwright cli` หรือทำตาม installation ของ CLI',
+      },
+      {
+        name: 'playwright-best-practices',
+        source: 'currents-dev / playwright-best-practices-skill',
+        href: 'https://www.skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices',
+        role: 'คู่มือเขียน, debug และดูแล Playwright tests ครอบคลุม locator, assertion, fixture, Page Object Model, flaky test, responsive, accessibility และ CI',
+        install: 'npx skills add https://github.com/currents-dev/playwright-best-practices-skill --skill playwright-best-practices',
+        use: 'เรียกใช้ตอนสร้างหรือ review test เช่น “ใช้ playwright-best-practices ตรวจ selector, wait, isolation และ retry ของ test นี้ แล้วแก้เฉพาะจุด”',
+        note: 'หลังแก้ test ให้รัน `npx playwright test --reporter=list` และทำซ้ำหลายรอบสำหรับ flow สำคัญ ไม่ถือว่า generate ผ่านจนกว่าจะ execute จริง',
+      },
+      {
+        name: 'playwright-generate-test',
+        source: 'github / awesome-copilot',
+        href: 'https://www.skills.sh/github/awesome-copilot/playwright-generate-test',
+        role: 'สร้าง Playwright test จาก scenario โดยให้ agent สำรวจและทำตามขั้นตอนผ่าน Playwright MCP ก่อนเขียนไฟล์ TypeScript ลงโฟลเดอร์ tests',
+        install: 'npx skills add https://github.com/github/awesome-copilot --skill playwright-generate-test',
+        use: 'เรียกใช้เมื่อมี scenario ชัดเจน เช่น “ใช้ playwright-generate-test สร้าง test เปิดหน้าแรก → เปิดบทความ → กดสารบัญ → ตรวจ URL และรัน test ให้ผ่าน”',
+        note: 'ต้องมี Playwright MCP ที่เชื่อมต่อได้ และควรตรวจ generated locator, assertion และ test data ก่อนนำไปใช้ใน CI',
+      },
+      {
+        name: 'playwright-explore-website',
+        source: 'github / awesome-copilot',
+        href: 'https://www.skills.sh/github/awesome-copilot/playwright-explore-website',
+        role: 'สำรวจเว็บไซต์จาก URL แล้วหา 3–5 user flows, บันทึก element/locator/expected outcome และเสนอ test case ต่อจากสิ่งที่พบ',
+        install: 'npx skills add https://github.com/github/awesome-copilot --skill playwright-explore-website',
+        use: 'เรียกใช้ก่อน generate test เช่น “ใช้ playwright-explore-website สำรวจ http://localhost:3000 โดยห้าม submit ข้อมูลจริง สรุป flow และ locator ที่พบ”',
+        note: 'ควรกำหนด URL, environment, account และสิ่งที่ห้ามทำให้ชัด; skill นี้จะใช้ Playwright MCP และปิด browser context เมื่อสำรวจเสร็จ',
+      },
+    ],
+  },
+  {
+    id: 'utils',
+    icon: Wrench,
+    eyebrow: '04 / PLANNING & CLARITY',
+    title: 'Utility: Grill skills',
+    description: 'ใช้ตรวจความชัดของ requirement และ stress-test แผนก่อนลงมือ โดยเลือกความเข้มตามขนาดและความเสี่ยงของงาน',
+    items: [
+      {
+        name: 'grill-me',
+        source: 'mattpocock / skills',
+        href: 'https://www.skills.sh/mattpocock/skills/grill-me',
+        role: 'สัมภาษณ์ requirement หรือ design แบบถามทีละคำถาม ไล่ decision tree และให้ agent อ่าน codebase เพื่อตอบสิ่งที่ค้นพบได้เอง',
+        install: 'npx skills add https://github.com/mattpocock/skills --skill grill-me',
+        use: 'ใช้กับงานเล็กหรือ scope ชัดแต่มีจุดที่ต้องยืนยัน เช่น “ใช้ grill-me ตรวจ acceptance criteria ของหน้า contact ก่อนแก้โค้ด” แล้วเริ่ม session ด้วย `/grilling`',
+        note: 'ควรถามทีละข้อและยังไม่ implement จนกว่าจะได้ shared understanding; ไม่ใช่คำสั่งให้ถามทุกเรื่องที่อ่านจาก codebase ได้แล้ว',
+      },
+      {
+        name: 'grill-with-docs',
+        source: 'mattpocock / skills',
+        href: 'https://www.skills.sh/mattpocock/skills/grill-with-docs',
+        role: 'stress-test แผนกับ domain model, glossary และ ADR พร้อมบันทึกคำศัพท์ใน CONTEXT.md และการตัดสินใจสำคัญเป็น ADR เมื่อจำเป็น',
+        install: 'npx skills add https://github.com/mattpocock/skills --skill grill-with-docs',
+        use: 'ใช้กับงานใหญ่ หลายไฟล์ หรือ requirement ยังไม่ชัด เช่น “ใช้ grill-with-docs ตรวจ redesign นี้กับโครงสร้าง repo และบันทึก decision ที่ย้อนกลับยาก”',
+        note: 'ให้เขียน CONTEXT.md/ADR เฉพาะเมื่อมีคำศัพท์หรือ decision ที่ตกผลึกจริง และต้องตรวจ diff ของเอกสารก่อนยอมรับ',
+      },
+      {
+        name: 'grilling',
+        source: 'mattpocock / skills',
+        href: 'https://www.skills.sh/mattpocock/skills/grilling',
+        role: 'แกนกลางของเทคนิค interview แบบ one-question-at-a-time ที่ skills อื่นเรียกใช้เพื่อคลี่ dependency และยืนยันความเข้าใจร่วมกัน',
+        install: 'npx skills add https://github.com/mattpocock/skills --skill grilling',
+        use: 'เรียกตรงด้วย `/grilling` เมื่อต้องการ stress-test แผนอย่างเดียว หรือให้ `grill-me` / `grill-with-docs` เป็น entry point ตามลักษณะงาน',
+        note: 'เป็น primitive ที่อยู่เบื้องหลัง ไม่ใช่ workflow แทน grill-me หรือ grill-with-docs ทุกกรณี',
+      },
+    ],
+  },
+  {
     id: 'shadcn',
     icon: Puzzle,
-    eyebrow: '03 / UI COMPONENTS',
+    eyebrow: '05 / UI COMPONENTS',
     title: 'shadcn/ui และ Stitch',
     description: 'ใช้เมื่อต้องสร้าง UI component ที่เข้ากับ design system หรือแปลง design ให้เป็นโค้ดที่ดูแลต่อได้',
     items: [
@@ -119,7 +200,7 @@ const skillGroups = [
   {
     id: 'design',
     icon: Palette,
-    eyebrow: '04 / FRONTEND · UI · UX',
+    eyebrow: '06 / FRONTEND · UI · UX',
     title: 'Frontend และ UI/UX',
     description: 'ใช้กำหนด visual direction, information hierarchy และตรวจว่า UI ใช้งานได้จริง ไม่ใช่แค่สวยในภาพ',
     items: [
@@ -160,7 +241,7 @@ const skillGroups = [
   {
     id: 'documents',
     icon: FileText,
-    eyebrow: '05 / DOCUMENTS',
+    eyebrow: '07 / DOCUMENTS',
     title: 'PDF และเอกสาร',
     description: 'ใช้เมื่ออ่าน PDF, สร้างเอกสาร หรือทำงานกับ PDF ที่ต้องตรวจทั้งข้อมูลและ layout',
     items: [
@@ -186,7 +267,7 @@ const skillGroups = [
   {
     id: 'thai',
     icon: Languages,
-    eyebrow: '06 / COMMUNICATION',
+    eyebrow: '08 / COMMUNICATION',
     title: 'Thai Interpreter',
     description: 'ใช้เป็นชั้นช่วยตีความ requirement ภาษาไทยให้ agent เข้าใจเจตนา ขอบเขต และคำที่มีความหมายเฉพาะ',
     items: [
@@ -384,8 +465,8 @@ export default function BlogPage() {
         <div className="relative max-w-4xl">
           <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E8C4A0]">KUMA notes / agent workflow</p>
           <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] tracking-[-0.045em] sm:text-6xl">Claude / Codex Config<br /><span className="text-[#F3B19B]">Skills และ MCP ใช้ยังไง?</span></h1>
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-[#E8C4A0] sm:text-base">คู่มือรวม Skill และ MCP สำหรับงาน Laravel, React, UI/UX, PDF, browser QA และ repository ตั้งแต่เลือกใช้ ติดตั้ง ไปจนถึงเขียน prompt ให้ agent ทำงานได้ตรงจุด</p>
-          <div className="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-[#FAD4C0]"><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">Skills 15 รายการ</span><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">MCP 9 รายการ</span><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">อัปเดต 22 ก.ค. 2026</span></div>
+          <p className="mt-6 max-w-2xl text-sm leading-7 text-[#E8C4A0] sm:text-base">คู่มือรวม Skill และ MCP สำหรับงาน Laravel, React, UI/UX, planning, PDF, browser QA และ repository ตั้งแต่เลือกใช้ ติดตั้ง ไปจนถึงเขียน prompt ให้ agent ทำงานได้ตรงจุด</p>
+          <div className="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-[#FAD4C0]"><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">Skills 20 รายการ</span><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">MCP 9 รายการ</span><span className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">อัปเดต 22 ก.ค. 2026</span></div>
         </div>
       </header>
 
@@ -395,6 +476,8 @@ export default function BlogPage() {
           <nav aria-label="สารบัญบทความ" className="mt-4 grid gap-1 text-sm">
             <a href="#start" className="rounded-lg px-3 py-2 text-[#7A4838] hover:bg-[#FAE4DC] hover:text-[#24110B]">เริ่มต้น: Skill vs MCP</a>
             <a href="#using" className="rounded-lg px-3 py-2 text-[#7A4838] hover:bg-[#FAE4DC] hover:text-[#24110B]">วิธีเรียกใช้</a>
+            <a href="#install-playwright" className="rounded-lg px-3 py-1.5 pl-6 text-xs text-[#8B5E3C] hover:bg-[#FAE4DC] hover:text-[#24110B]">ติดตั้ง Playwright ทั้งชุด</a>
+            <a href="#agent-instructions" className="rounded-lg px-3 py-1.5 pl-6 text-xs text-[#8B5E3C] hover:bg-[#FAE4DC] hover:text-[#24110B]">Codex / Claude instructions</a>
             <a href="#skills" className="rounded-lg px-3 py-2 text-[#7A4838] hover:bg-[#FAE4DC] hover:text-[#24110B]">Skills</a>
             {skillGroups.map((group) => <a key={group.id} href={`#${group.id}`} className="rounded-lg px-3 py-1.5 pl-6 text-xs text-[#8B5E3C] hover:bg-[#FAE4DC] hover:text-[#24110B]">{group.title}</a>)}
             <a href="#mcps" className="rounded-lg px-3 py-2 text-[#7A4838] hover:bg-[#FAE4DC] hover:text-[#24110B]">MCP</a>
@@ -428,7 +511,55 @@ export default function BlogPage() {
               </div>
               <CodeBlock>{'ใช้ skill frontend-design วาง design plan ก่อนเขียนหน้าใหม่\n\nใช้ Chrome DevTools MCP เปิด http://localhost:3000/blog/rbruskill\nตรวจ console, network, accessibility และ Lighthouse mobile\n\nใช้ Playwright MCP ทดสอบเปิดบทความ → กดสารบัญ → ตรวจว่า URL เปลี่ยนเป็น #laravel\nและไม่มี horizontal scroll'}</CodeBlock>
               <p className="mt-3 text-xs leading-6 text-[#7A4838]">หลังเพิ่ม MCP ให้ restart Claude หรือ Codex ก่อนใช้งาน; ใน Claude Code ใช้ <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">/mcp</code> เพื่อตรวจสถานะ ส่วน Codex ให้ตรวจในรายการ MCP ที่เชื่อมต่ออยู่ แล้วเรียกผ่าน prompt ตามตัวอย่างด้านบน</p>
+
+              <section id="install-playwright" className="mt-8 scroll-mt-28 border-t border-[#E8B8A8]/55 pt-7">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-[#A94E43]">Install all four / project or machine</p>
+                <h3 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#24110B]">Prompt ติดตั้ง Playwright skills ทั้งชุด</h3>
+                <p className="mt-3 text-sm leading-7 text-[#7A4838]">Skills CLI ใช้ <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">--global</code> หรือ <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">-g</code> สำหรับระดับเครื่อง; ถ้าไม่ใส่ flag จะติดตั้งใน project scope จาก directory ปัจจุบัน. ตัวอย่างนี้เลือกทั้ง Codex และ Claude Code และใช้ <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">--copy</code> เพื่อให้ไฟล์แยกจาก symlink และตรวจสอบได้ง่าย</p>
+
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div className="min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF0CC]/45 p-4">
+                    <p className="text-sm font-bold text-[#24110B]">ติดตั้งลงโปรเจกต์ปัจจุบัน</p>
+                    <p className="mt-1 text-xs leading-6 text-[#7A4838]">รันจาก root ของ repo; เหมาะกับ skill ที่ต้องแชร์กับทีมและผูกกับโปรเจกต์นี้</p>
+                    <CodeBlock>{'cd /path/to/project\n\nnpx skills add https://github.com/microsoft/playwright-cli --skill playwright-cli --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/currents-dev/playwright-best-practices-skill --skill playwright-best-practices --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/github/awesome-copilot --skill playwright-generate-test --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/github/awesome-copilot --skill playwright-explore-website --agent codex --agent claude-code --copy --yes\n\nnpx skills list'}</CodeBlock>
+                  </div>
+                  <div className="min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF0CC]/45 p-4">
+                    <p className="text-sm font-bold text-[#24110B]">ติดตั้งระดับเครื่อง</p>
+                    <p className="mt-1 text-xs leading-6 text-[#7A4838]">ใส่ <code className="rounded bg-[#F3D1C0] px-1 py-0.5 font-mono text-[11px]">-g</code>; skill จะพร้อมใช้ข้ามทุกโปรเจกต์ของ user ตาม agent ที่เลือก</p>
+                    <CodeBlock>{'npx skills add https://github.com/microsoft/playwright-cli --skill playwright-cli --global --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/currents-dev/playwright-best-practices-skill --skill playwright-best-practices --global --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/github/awesome-copilot --skill playwright-generate-test --global --agent codex --agent claude-code --copy --yes\nnpx skills add https://github.com/github/awesome-copilot --skill playwright-explore-website --global --agent codex --agent claude-code --copy --yes\n\nnpx skills list --global'}</CodeBlock>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-4">
+                  <div className="min-w-0 rounded-2xl border border-[#24110B]/15 bg-[#24110B] p-5 text-[#FAD4C0]">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#E8C4A0]">Prompt / project scope</p>
+                    <CodeBlock>{'ติดตั้ง Playwright skills ทั้ง 4 ตัวนี้ลงในโปรเจกต์ปัจจุบัน\n\n1. https://www.skills.sh/microsoft/playwright-cli/playwright-cli\n2. https://www.skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices\n3. https://www.skills.sh/github/awesome-copilot/playwright-generate-test\n4. https://www.skills.sh/github/awesome-copilot/playwright-explore-website\n\nทำงานจาก project root และ target เฉพาะ Codex กับ Claude Code\nใช้ Skills CLI ที่รองรับ direct URL หรือ GitHub source พร้อม --skill\nหลังติดตั้งตรวจด้วย npx skills list ว่าครบทั้ง 4 ตัวและตรวจไฟล์ SKILL.md ใน project scope\nห้ามแก้ source code, ห้ามติดตั้ง MCP, ห้าม commit และห้าม push\nถ้าคำสั่งหรือ source ใดติดตั้งไม่ได้ ให้หยุดและรายงาน error จริงพร้อมคำสั่งที่ลอง'}</CodeBlock>
+                  </div>
+                  <div className="min-w-0 rounded-2xl border border-[#24110B]/15 bg-[#24110B] p-5 text-[#FAD4C0]">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#E8C4A0]">Prompt / machine-wide scope</p>
+                    <CodeBlock>{'ติดตั้ง Playwright skills ทั้ง 4 ตัวนี้ให้ใช้งานระดับเครื่องสำหรับ Codex กับ Claude Code\n\n1. https://www.skills.sh/microsoft/playwright-cli/playwright-cli\n2. https://www.skills.sh/currents-dev/playwright-best-practices-skill/playwright-best-practices\n3. https://www.skills.sh/github/awesome-copilot/playwright-generate-test\n4. https://www.skills.sh/github/awesome-copilot/playwright-explore-website\n\nใช้ Skills CLI โดยใส่ --global และ --copy\nหลังติดตั้งตรวจ npx skills list --global และยืนยันว่า Codex เห็นใน ~/.codex/skills และ Claude Code เห็นใน ~/.claude/skills\nห้ามแก้ repo ปัจจุบัน, ห้ามติดตั้ง MCP, ห้าม commit และห้าม push\nถ้า global path ของ agent รุ่นที่ติดตั้งต่างจากนี้ ให้รายงาน path จริงแทนการเดา'}</CodeBlock>
+                  </div>
+                </div>
+
+                <div className="mt-5 rounded-2xl border border-[#C86858]/30 bg-[#F3D1C0] p-4">
+                  <p className="text-sm font-bold text-[#24110B]">หลังติดตั้งให้เรียกใช้เป็นลำดับ</p>
+                  <p className="mt-2 text-sm leading-7 text-[#7A4838]">เริ่มจาก <strong className="text-[#24110B]">playwright-explore-website</strong> เพื่อหา flow → ใช้ <strong className="text-[#24110B]">playwright-generate-test</strong> สร้าง test จาก scenario ที่ยืนยันแล้ว → ใช้ <strong className="text-[#24110B]">playwright-best-practices</strong> review locator และ assertion → ใช้ <strong className="text-[#24110B]">playwright-cli</strong> ตรวจ flow แบบ interactive หรือ debug console/network</p>
+                  <CodeBlock>{'ใช้ playwright-explore-website สำรวจ http://localhost:3000/blog/rbruskill\nสรุป 3-5 flows พร้อม locator และ expected outcome โดยห้ามแก้ข้อมูลจริง\nจากนั้นใช้ playwright-generate-test สร้าง TypeScript test ลง tests/ และรันให้ผ่าน\nใช้ playwright-best-practices review test ที่สร้าง ตรวจ selector, wait, isolation และ assertion\nสุดท้ายใช้ playwright-cli เปิดหน้าเดียวกัน ตรวจ snapshot, console และ requests\nห้าม commit หรือ push จนกว่าจะรายงานผลทดสอบและ issue ที่ยังเหลือ'}</CodeBlock>
+                </div>
+              </section>
             </section>
+          </section>
+
+          <section id="agent-instructions" className="scroll-mt-28 mt-14 rounded-[2rem] border border-[#E8B8A8]/65 bg-[#FFF0CC]/55 p-6 sm:p-9">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">Custom instructions / agent rules</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-[#24110B] sm:text-4xl">คำสั่งกลางสำหรับ Codex และ Claude</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#7A4838]">โปรเจกต์นี้ใช้ไฟล์แยกตาม agent แต่ใช้หลักการชุดเดียวกัน: Codex อ่าน <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">AGENTS.md</code> ส่วน Claude อ่าน <code className="rounded bg-[#F3D1C0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">CLAUDE.md</code> ทั้งสองไฟล์มี communication style, clarification, MCP-first, engineering rules, skill routing และ verification rules แล้ว</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5"><h3 className="text-lg font-bold text-[#24110B]">งานเล็ก / scope ชัด</h3><p className="mt-2 text-sm leading-7 text-[#7A4838]">เลือก <strong className="text-[#24110B]">grill-me</strong> เพื่อถามเฉพาะจุดที่ยังต้องตัดสินใจ และให้ agent ค้นคำตอบจาก codebase ก่อนถามผู้ใช้</p><CodeBlock>{'ใช้ grill-me ตรวจ requirement นี้ก่อนแก้โค้ด\nถามทีละคำถามที่จำเป็นเท่านั้น\nเมื่อ shared understanding ชัดแล้วสรุป scope และค่อยเริ่ม implement'}</CodeBlock></div>
+              <div className="min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5"><h3 className="text-lg font-bold text-[#24110B]">งานใหญ่ / หลายไฟล์ / ยังไม่ชัด</h3><p className="mt-2 text-sm leading-7 text-[#7A4838]">เลือก <strong className="text-[#24110B]">grill-with-docs</strong> เพื่อผูกแผนกับ domain model และบันทึกคำศัพท์หรือ decision ที่จำเป็นลงเอกสาร</p><CodeBlock>{'ใช้ grill-with-docs ตรวจแผนนี้กับ codebase, CONTEXT.md และ ADR ที่มีอยู่\nถามทีละข้อและเสนอคำตอบแนะนำ\nสร้างหรือแก้ CONTEXT.md/ADR เฉพาะเมื่อมี decision ที่ตกผลึกจริง'}</CodeBlock></div>
+            </div>
+            <div className="mt-5 rounded-2xl border border-[#C86858]/30 bg-[#F3D1C0] p-5"><p className="text-sm font-bold text-[#24110B]">ติดตั้ง utility skills ทั้ง 3 ตัวพร้อมกัน</p><p className="mt-2 text-sm leading-7 text-[#7A4838]">รันจาก project root เพื่อให้ใช้กับ Codex และ Claude Code ในโปรเจกต์นี้; เติม <code className="rounded bg-[#FFF8F0] px-1.5 py-0.5 font-mono text-[11px] text-[#6F3D32]">--global</code> ถ้าต้องการใช้ข้ามทุกโปรเจกต์</p><CodeBlock>{'npx skills add https://github.com/mattpocock/skills --skill grill-me --skill grill-with-docs --skill grilling --agent codex --agent claude-code --copy --yes\n\n# machine-wide\nnpx skills add https://github.com/mattpocock/skills --skill grill-me --skill grill-with-docs --skill grilling --global --agent codex --agent claude-code --copy --yes'}</CodeBlock></div>
+            <div className="mt-5 rounded-2xl bg-[#24110B] p-5 text-[#FAD4C0]"><p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#E8C4A0]">Shared instruction files</p><CodeBlock>{'Codex:  AGENTS.md\nClaude: CLAUDE.md\n\nPrimitive ที่เรียกตรงได้: /grilling\nEntry points: grill-me สำหรับงานเล็ก, grill-with-docs สำหรับงานใหญ่\n\nห้าม commit, push, deploy หรือ external action เว้นแต่ผู้ใช้สั่ง\nหลังแก้เสร็จต้องตรวจผลจริงด้วย lint, build และ QA ตามความเสี่ยง'}</CodeBlock></div>
           </section>
 
           <div id="skills" className="scroll-mt-28 mt-14 border-t border-[#E8B8A8]/55 pt-12"><p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">Skills / operating knowledge</p><h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-[#24110B] sm:text-4xl">Skills ที่ควรมีในชุดทำงาน</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-[#7A4838]">เลือกติดตั้งตามงาน ไม่จำเป็นต้องลงทุกตัวพร้อมกัน และควรให้ agent อ่าน skill ที่เกี่ยวข้องก่อนเริ่ม implement หรือ audit</p></div>
@@ -451,6 +582,31 @@ export default function BlogPage() {
               ].map(([number, title, description]) => <div key={number} className="rounded-2xl border border-[#8B4B3F]/20 bg-[#FFF8F0]/55 p-4"><p className="font-mono text-xs text-[#A94E43]">{number}</p><h3 className="mt-2 text-base font-bold text-[#24110B]">{title}</h3><p className="mt-1 text-sm leading-7 text-[#7A4838]">{description}</p></div>)}
             </div>
             <div className="mt-7 rounded-2xl bg-[#24110B] p-5 text-[#FAD4C0]"><p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#E8C4A0]">ตัวอย่าง prompt ที่ดี</p><p className="mt-3 text-sm leading-7">“ใช้ Laravel security และ patterns ตรวจ feature นี้ก่อนแก้โค้ด อ่านไฟล์ที่เกี่ยวข้องเท่านั้น สรุป risk เป็น path และ severity จากนั้นเสนอ patch พร้อม test ที่ต้องรัน ห้าม commit หรือ deploy”</p></div>
+          </section>
+
+          <section className="mt-14 rounded-[2rem] border border-[#E8B8A8]/65 bg-[#FFF0CC]/55 p-6 sm:p-9">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">More notes / ARTICLES</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-[#24110B] sm:text-4xl">บทความอื่นที่น่าอ่าน</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              <Link href="/blog/opencode-opendesign" className="group min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5 transition hover:-translate-y-1 hover:border-[#C86858]/60">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A94E43]">Alternative tools</p>
+                <h3 className="mt-3 text-lg font-bold text-[#24110B]">OpenCode + Open Design</h3>
+                <p className="mt-2 text-sm leading-6 text-[#7A4838]">ทางเลือกสำหรับคนที่อยากทำงานแบบ local-first และใช้ provider ของตัวเอง</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#7A3D35]">อ่านบทความ <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
+              </Link>
+              <Link href="/blog/obsidian" className="group min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5 transition hover:-translate-y-1 hover:border-[#C86858]/60">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A94E43]">Knowledge system</p>
+                <h3 className="mt-3 text-lg font-bold text-[#24110B]">จดแต่ไม่ต้องจำด้วย Obsidian</h3>
+                <p className="mt-2 text-sm leading-6 text-[#7A4838]">สร้างคลังความคิดที่ค้นเจอ เชื่อมโยงได้ และพกพาเป็นไฟล์ Markdown</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#7A3D35]">อ่านบทความ <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
+              </Link>
+              <Link href="/blog/docmd" className="group min-w-0 rounded-2xl border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5 transition hover:-translate-y-1 hover:border-[#C86858]/60">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#A94E43]">Handoff docs</p>
+                <h3 className="mt-3 text-lg font-bold text-[#24110B]">ส่งต่องานด้วย docmd</h3>
+                <p className="mt-2 text-sm leading-6 text-[#7A4838]">เปลี่ยน Markdown ให้เป็นเอกสารที่อ่านง่าย ค้นหาได้ และตรวจสอบต่อได้</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#7A3D35]">อ่านบทความ <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span>
+              </Link>
+            </div>
           </section>
 
           <section className="mt-12 flex flex-col gap-4 border-t border-[#E8B8A8]/55 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between"><Link href="/" className="inline-flex items-center gap-2 font-semibold text-[#7A3D35] hover:text-[#24110B]"><ArrowRight aria-hidden="true" className="h-4 w-4 rotate-180" />กลับหน้าแรก</Link><Link href="/contact" className="inline-flex items-center gap-2 font-semibold text-[#7A3D35] hover:text-[#24110B]">คุยเรื่องโปรเจกต์ <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link></section>
