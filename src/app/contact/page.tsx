@@ -7,6 +7,7 @@ import { submitContact, type ContactFormState } from './actions';
 import { contact } from '@/data/site';
 import { buttonClass, container } from '@/components/site/styles';
 import { cn } from '@/lib/utils';
+import Float from '@/components/motion/Float';
 
 const initialState: ContactFormState = { ok: false };
 
@@ -31,7 +32,9 @@ export default function ContactPage() {
   return (
     <main className={cn(container, 'grid gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-16')}>
       <div className="lg:col-span-5">
-        <Image src="/image/illustrations/page-contact.webp" alt="" width={762} height={900} priority aria-hidden="true" className="-ml-2 mb-4 h-auto w-32 sm:w-40" />
+        <Float className="-ml-2 mb-4 w-32 sm:w-40" distance={6} duration={3.5} sway={-4}>
+          <Image src="/image/illustrations/page-contact.webp" alt="" width={762} height={900} priority aria-hidden="true" className="h-auto w-full" />
+        </Float>
         <h1 className="text-4xl font-extrabold leading-[1.1] tracking-[-0.025em] text-kuma-bark sm:text-5xl">ขอประเมินราคาเว็บไซต์</h1>
         <p className="mt-6 text-lg leading-8 text-kuma-clay">
           กรอกฟอร์มสั้นๆ บอกโจทย์ของเว็บไซต์ KUMA จะตอบกลับภายใน 1-2 วันทำการพร้อมแนวทางและข้อเสนอเบื้องต้น

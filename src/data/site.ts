@@ -1,3 +1,6 @@
+/** Canonical site origin (Vercel redirects the bare domain to www). */
+export const siteUrl = 'https://www.kumadesign.dev';
+
 /** Minimum project rate in THB. */
 export const startingRate = 2500;
 

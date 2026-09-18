@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { articles } from '@/data/articles';
 import { caseStudies } from '@/data/case-studies';
-
-const BASE = 'https://kumadesign.dev';
+import { siteUrl as BASE } from '@/data/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

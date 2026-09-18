@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Check } from 'lucide-react';
@@ -7,6 +8,14 @@ import { buttonClass, container } from '@/components/site/styles';
 import { services } from '@/data/services';
 import { serviceIllustrations as serviceArt, startingRate, workingPromises } from '@/data/site';
 import { cn } from '@/lib/utils';
+import Reveal from '@/components/motion/Reveal';
+import Float from '@/components/motion/Float';
+
+export const metadata: Metadata = {
+  title: 'บริการรับทำเว็บไซต์ เริ่มต้น 2,500 บาท',
+  description: 'บริการฟรีแลนซ์รับทำเว็บบริษัท Landing Page เว็บแอป ระบบหลังบ้าน และออกแบบ UI/UX งานเริ่มต้น 2,500 บาท พร้อมระยะเวลาและสิ่งที่จะได้รับของแต่ละบริการ',
+  alternates: { canonical: '/services' },
+};
 
 function formatPrice(price: number | null, note?: string) {
   if (price === null) return 'ขอใบเสนอราคา';
@@ -38,8 +47,10 @@ export default function ServicesPage() {
             aria-labelledby={`${service.slug}-title`}
             className="grid scroll-mt-24 gap-10 border-b-2 border-dashed border-kuma-line py-16 last:border-b-0 lg:grid-cols-12 lg:py-20"
           >
-            <div className="lg:col-span-5">
-              <Image src={serviceArt[service.slug]} alt="" width={900} height={900} className="mb-5 h-28 w-28 object-contain" />
+            <Reveal x={-40} y={0} className="lg:col-span-5">
+              <Float distance={8} duration={4.5} className="mb-5 w-28">
+                <Image src={serviceArt[service.slug]} alt="" width={900} height={900} className="h-28 w-28 object-contain" />
+              </Float>
               <h2 id={`${service.slug}-title`} className="text-3xl font-extrabold leading-tight tracking-[-0.02em] text-kuma-bark sm:text-4xl">
                 {service.title}
               </h2>
@@ -57,9 +68,9 @@ export default function ServicesPage() {
               <Link href={`/contact?type=${service.slug}`} className={buttonClass('primary', 'mt-8')}>
                 ขอประเมินราคางานนี้
               </Link>
-            </div>
+            </Reveal>
 
-            <div className="grid gap-10 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
+            <Reveal delay={0.15} className="grid gap-10 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
               <div>
                 <h3 className="font-semibold text-kuma-bark">สิ่งที่จะได้รับ</h3>
                 <ul className="mt-4 space-y-3">
@@ -82,18 +93,18 @@ export default function ServicesPage() {
                   เครื่องมือ: {service.tags.join(', ')}
                 </p>
               </div>
-            </div>
+            </Reveal>
           </section>
         ))}
       </div>
 
       <section aria-label="สิ่งที่ได้ทุกงาน" className="border-t border-kuma-line/70 bg-white/40">
         <ul className={cn(container, 'grid gap-8 py-12 sm:grid-cols-3')}>
-          {workingPromises.map((promise) => (
-            <li key={promise.title}>
+          {workingPromises.map((promise, index) => (
+            <Reveal as="li" key={promise.title} delay={index * 0.12}>
               <p className="text-lg font-semibold text-kuma-bark">{promise.title}</p>
               <p className="mt-1 leading-7 text-kuma-clay">{promise.description}</p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>

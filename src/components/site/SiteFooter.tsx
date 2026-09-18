@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Breathe from '@/components/motion/Breathe';
 import { contact, navItems, startingRate } from '@/data/site';
 import { container } from './styles';
 import { cn } from '@/lib/utils';
@@ -8,21 +9,16 @@ export default function SiteFooter() {
   return (
     <footer className="relative border-t-2 border-kuma-bark bg-kuma-bark pb-28 text-kuma-cream lg:pb-0">
       {/* Sleeping bear resting on the footer edge */}
-      <Image
-        src="/image/illustrations/footer-sleeping.webp"
-        alt=""
-        width={900}
-        height={599}
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-[5.25rem] left-1/2 h-auto w-44 -translate-x-1/2 sm:left-auto sm:right-12 sm:w-56 sm:translate-x-0"
-      />
+      <Breathe className="pointer-events-none absolute -top-[5.25rem] left-1/2 w-44 -translate-x-1/2 sm:left-auto sm:right-12 sm:w-56 sm:translate-x-0">
+        <Image src="/image/illustrations/footer-sleeping.webp" alt="" width={900} height={599} aria-hidden="true" className="h-auto w-full" />
+      </Breathe>
       <div className={cn(container, 'grid gap-10 pt-16 pb-14 md:grid-cols-12')}>
         <div className="md:col-span-5">
           <Link href="/" className="inline-flex rounded-full border-2 border-kuma-gold bg-[#FFF3CE] px-4 py-1.5">
             <Image src="/image/Asset/KUMA.png" alt="KUMA หน้าแรก" width={96} height={48} className="h-10 w-auto" />
           </Link>
           <p className="mt-5 max-w-sm leading-7 text-[#E8C4A0]">
-            ฟรีแลนซ์ในจันทบุรี รับออกแบบและพัฒนาเว็บไซต์ เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ คุยงานกับคนทำโดยตรงตั้งแต่ brief จนส่งมอบ
+            ฟรีแลนซ์ในจันทบุรี รับงานทุกพื้นที่ ออกแบบและพัฒนาเว็บไซต์ เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ คุยงานกับคนทำโดยตรงตั้งแต่ brief จนส่งมอบ
           </p>
           <p className="mt-4 inline-block rounded-full bg-kuma-gold px-4 py-1 font-semibold text-kuma-bark">
             เริ่มต้น {startingRate.toLocaleString('th-TH')} บาท

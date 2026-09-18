@@ -7,6 +7,7 @@ import { buttonClass, container } from '@/components/site/styles';
 import { caseStudies } from '@/data/case-studies';
 import { testimonials } from '@/data/testimonials';
 import { cn } from '@/lib/utils';
+import Reveal from '@/components/motion/Reveal';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -23,6 +24,9 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: study.title,
     description: study.summary,
+    // Without this the page inherits the root layout's canonical ("/").
+    alternates: { canonical: `/work/${study.slug}` },
+    openGraph: { title: study.title, description: study.summary, url: `/work/${study.slug}`, images: [{ url: study.cover, width: 1440, height: 810 }] },
   };
 }
 
@@ -67,8 +71,8 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </header>
 
-      <div className={cn(container, 'mt-10')}>
-        <div className="overflow-hidden rounded-2xl border border-kuma-line/70 bg-white shadow-[0_40px_80px_-48px_rgba(42,16,16,0.6)]">
+      <Reveal y={48} scale={0.97} className={cn(container, 'mt-10')}>
+        <div className="overflow-hidden rounded-2xl border-2 border-kuma-bark bg-white shadow-[10px_10px_0_0_#2A1010]">
           <Image
             src={study.cover}
             alt={`ภาพหน้าแรกของเว็บไซต์ ${study.client}`}
@@ -79,7 +83,7 @@ export default async function CaseStudyPage({ params }: Props) {
             className="h-auto w-full"
           />
         </div>
-      </div>
+      </Reveal>
 
       <div className={cn(container, 'grid gap-12 py-16 lg:grid-cols-12 lg:py-24')}>
         <dl className="h-fit border-t border-kuma-line lg:sticky lg:top-28 lg:col-span-4">

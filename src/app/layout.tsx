@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Kanit, Geist } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import ContactBar from "@/components/site/ContactBar";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+import MotionProvider from "@/components/motion/MotionProvider";
+import { siteUrl } from "@/data/site";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -15,13 +15,13 @@ const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kumadesign.dev"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี — kumadesign.dev",
     template: "%s | kumadesign.dev",
   },
   description:
-    "KUMA ฟรีแลนซ์รับทำเว็บไซต์ในจันทบุรี รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้าน ด้วย Next.js, React และ Laravel คุยงานกับคนทำโดยตรง ตั้งแต่วางโครงสร้าง พัฒนา จน deploy ใช้งานจริง",
+    "KUMA ฟรีแลนซ์รับทำเว็บไซต์ในจันทบุรี รับงานทุกพื้นที่ ทั้งเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้าน ด้วย Next.js, React และ Laravel คุยงานกับคนทำโดยตรง ตั้งแต่วางโครงสร้าง พัฒนา จน deploy ใช้งานจริง",
   keywords: [
     "KUMA",
     "ฟรีแลนซ์",
@@ -98,12 +98,12 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://kumadesign.dev/#organization",
+      "@id": `${siteUrl}/#organization`,
       name: "kumadesign.dev",
-      url: "https://kumadesign.dev",
-      image: "https://kumadesign.dev/image/Asset/KUMA.png",
+      url: siteUrl,
+      image: `${siteUrl}/image/Asset/KUMA.png`,
       email: "mailto:ptsuriyarangsri@gmail.com",
-      description: "KUMA — freelance web designer and developer in Chanthaburi, Thailand, building business websites and web applications",
+      description: "KUMA — freelance web designer and developer in Chanthaburi, Thailand, building business websites and web applications for clients anywhere",
       knowsAbout: [
         "UI/UX Design",
         "Frontend Development",
@@ -116,10 +116,10 @@ const jsonLd = {
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://kumadesign.dev/#service",
+      "@id": `${siteUrl}/#service`,
       name: "kumadesign.dev ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี",
-      url: "https://kumadesign.dev",
-      provider: { "@id": "https://kumadesign.dev/#organization" },
+      url: siteUrl,
+      provider: { "@id": `${siteUrl}/#organization` },
       areaServed: [
         { "@type": "City", name: "Chanthaburi" },
         { "@type": "Country", name: "Thailand" },
@@ -136,20 +136,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={cn("font-sans", geist.variable)}>
+    <html lang="th">
       <body className={cn(kanit.className, "relative min-h-screen bg-kuma-cream text-kuma-cocoa")}>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-kuma-bark focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-kuma-cream"
-        >
-          ข้ามไปยังเนื้อหาหลัก
-        </a>
-        <SiteHeader />
-        <div id="main-content" tabIndex={-1} className="outline-none">
-          {children}
-        </div>
-        <SiteFooter />
-        <ContactBar />
+        <MotionProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-kuma-bark focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-kuma-cream"
+          >
+            ข้ามไปยังเนื้อหาหลัก
+          </a>
+          <SiteHeader />
+          <div id="main-content" tabIndex={-1} className="outline-none">
+            {children}
+          </div>
+          <SiteFooter />
+          <ContactBar />
+        </MotionProvider>
         <Script
           id="schema-jsonld"
           type="application/ld+json"

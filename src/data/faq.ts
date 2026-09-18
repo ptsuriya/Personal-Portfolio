@@ -38,7 +38,7 @@ export const faqs: FAQItem[] = [
     id: 'communication',
     question: 'ติดต่อกันยังไง?',
     answer:
-      'หลักๆ ใช้ LINE หรือ email สำหรับเรื่องวันต่อวัน, นัด video call ทุก 1-2 สัปดาห์เพื่อ review งาน, มี Notion/Figma comment สำหรับ feedback บนงานจริง',
+      'หลักๆ ใช้อีเมลสำหรับเรื่องวันต่อวัน, นัด video call ทุก 1-2 สัปดาห์เพื่อ review งาน, มี Notion/Figma comment สำหรับ feedback บนงานจริง',
     category: 'process',
   },
   {

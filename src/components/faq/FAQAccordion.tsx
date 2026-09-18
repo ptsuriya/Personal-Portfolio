@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Plus } from 'lucide-react';
 import type { FAQItem } from '@/data/faq';
 

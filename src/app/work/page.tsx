@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import PageIntro from '@/components/site/PageIntro';
@@ -6,6 +7,13 @@ import CtaBlock from '@/components/site/CtaBlock';
 import { bodyText, container, sectionTitle } from '@/components/site/styles';
 import { caseStudies } from '@/data/case-studies';
 import { cn } from '@/lib/utils';
+import Reveal from '@/components/motion/Reveal';
+
+export const metadata: Metadata = {
+  title: 'ผลงานรับทำเว็บไซต์',
+  description: 'ตัวอย่างเว็บไซต์ที่ KUMA ออกแบบและพัฒนาให้ลูกค้า ทั้งเว็บองค์กรส่งออก ฐานข้อมูลชุมชนในจันทบุรี และเว็บไซต์องค์กรไม่แสวงหากำไร พร้อมโจทย์ วิธีแก้ และผลลัพธ์',
+  alternates: { canonical: '/work' },
+};
 
 const solutionCards = [
   { type: 'เว็บบริษัท', title: 'Corporate Website', description: 'เว็บไซต์บริษัทที่เล่า value proposition ชัด สร้างความน่าเชื่อถือ และพร้อมต่อยอดด้าน SEO' },
@@ -36,8 +44,8 @@ export default function WorkPage() {
             <p className={cn(bodyText, 'mt-4')}>ถ้าโจทย์ของคุณใกล้กับแบบใดแบบหนึ่ง ส่งรายละเอียดมาคุยกันได้เลย</p>
           </div>
           <ul className="border-t border-kuma-line lg:col-span-8">
-            {solutionCards.map((solution) => (
-              <li key={solution.title} className="border-b border-kuma-line">
+            {solutionCards.map((solution, index) => (
+              <Reveal as="li" key={solution.title} delay={index * 0.08} x={24} y={0} className="border-b border-kuma-line">
                 <Link href="/contact" className="group grid gap-2 py-6 sm:grid-cols-[10rem_1fr_auto] sm:items-baseline sm:gap-6">
                   <span className="text-sm text-kuma-clay">{solution.type}</span>
                   <span>
@@ -49,7 +57,7 @@ export default function WorkPage() {
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </span>
                 </Link>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>

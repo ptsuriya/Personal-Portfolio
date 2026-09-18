@@ -22,7 +22,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'LANNA FRUITS — เว็บไซต์องค์กรสำหรับตลาดส่งออก',
     client: 'LANNA FRUITS Co., Ltd.',
     year: 2025,
-    type: 'Frontend',
+    type: 'Full-Stack',
     cover: '/image/work/lannafruits.jpg',
     sticker: '/image/Asset/29.png',
     summary:
@@ -45,7 +45,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'สมุนไพรชากไทย — ทะเบียนสมุนไพรชุมชนออนไลน์',
     client: 'คณะพยาบาลศาสตร์ มหาวิทยาลัยราชภัฏรำไพพรรณี',
     year: 2026,
-    type: 'Frontend',
+    type: 'Full-Stack',
     cover: '/image/work/chakthaiherbs.jpg',
     sticker: '/image/Asset/39.png',
     summary:
@@ -68,7 +68,7 @@ export const caseStudies: CaseStudy[] = [
     title: 'AURANIC — เว็บไซต์หน้าเดียวสำหรับเครือข่ายเกษตรอินทรีย์',
     client: 'AURANIC',
     year: 2026,
-    type: 'Frontend',
+    type: 'Full-Stack',
     cover: '/image/work/auranic.jpg',
     sticker: '/image/Asset/44.png',
     summary:

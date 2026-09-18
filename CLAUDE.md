@@ -1,18 +1,19 @@
 # KUMA Portfolio — CLAUDE.md
 
-> ไฟล์นี้สรุปโครงสร้างและบริบทของโปรเจคทั้งหมดสำหรับ AI assistant
+> ไฟล์นี้สรุปโครงสร้างและบริบทของโปรเจคสำหรับ AI assistant
 > อ่านก่อนทุกครั้งที่จะแก้ไขโค้ด
 
 ---
 
-## 👤 เจ้าของโปรเจค
+## 👤 เจ้าของและตำแหน่งของเว็บ
 
 - **ชื่อ**: KUMA (Pongtiwat Suriyarangsri)
-- **อีเมล**: ptsuriyarangsri@gmail.com
-- **โดเมน (เป้าหมาย)**: https://kumadesign.dev
-- **อาชีพ**: UI/UX Designer, Frontend Developer, Pop R&B Songwriter
-- **เครื่องมือออกแบบ**: Canva, Figma, Penpot
-- **สแตกโค้ด**: React, Next.js, Tailwind CSS, Bootstrap, PHP, Laravel
+- **เว็บ**: https://www.kumadesign.dev (Vercel; DNS อยู่ที่ Cloudflare; โดเมนเปล่า `kumadesign.dev` redirect ไป `www`)
+- **ตำแหน่ง**: ฟรีแลนซ์รับออกแบบและพัฒนาเว็บไซต์ เว็บแอป และระบบหลังบ้าน อยู่จันทบุรี รับงานทุกพื้นที่ แต่ทำการตลาดเน้นผู้ประกอบการจันทบุรี
+- **ราคาเริ่มต้น**: 2,500 บาท (`startingRate` ใน `src/data/site.ts`)
+- **ช่องทางติดต่อ**: อีเมลและฟอร์มเท่านั้น (`ptsuriyarangsri@gmail.com`) — **ไม่มี LINE** ห้ามใส่กลับมา
+- **ห้ามแสดงรูปหน้าเจ้าของเว็บ** ทุกที่ ใช้มาสคอตหมี KUMA แทน
+- ผลงานทุกชิ้นออกในนามเว็บนี้ ประเภทงานเป็น Full-Stack
 
 ---
 
@@ -20,232 +21,104 @@
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js App Router (v16+) |
+| Framework | Next.js App Router (v16) |
 | Language | TypeScript |
-| Styling | Tailwind CSS v4 + shadcn/ui |
-| Animation | Framer Motion v12 |
+| Styling | Tailwind CSS v4 (`@import "tailwindcss"`) |
+| Animation | Motion (`motion/react`) ผ่าน `src/components/motion/` + `MotionConfig reducedMotion="user"` |
 | Icons | lucide-react |
-| UI Primitives | @base-ui/react, class-variance-authority |
-| HTTP Client | axios |
-| Font | Kanit (Thai/Latin) + Geist (monospace fallback) |
-| Package Manager | บน lock files มีทั้ง bun, pnpm, npm (ใช้ `npm run dev`) |
+| Form | Server Action + zod + Resend (`src/app/contact/actions.ts`) |
+| Font | Kanit ผ่าน `next/font` |
+| Package manager | pnpm 10 (`pnpm-lock.yaml` เป็น lock file เดียว) |
 
 ---
 
-## 📁 โครงสร้างไฟล์ที่สำคัญ
+## 📁 โครงสร้างไฟล์
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          ← Root layout, fonts, SEO metadata (lang="th")
-│   ├── globals.css         ← Tailwind imports, CSS variables, keyframes
-│   ├── page.tsx            ← หน้า Hub หลัก (Landing page)
-│   ├── blog/
-│   │   ├── layout.tsx
-│   │   └── page.tsx        ← Blog placeholder (ยังไม่มี content)
-│   ├── codework/
-│   │   ├── layout.tsx      ← Sub-nav: ผลงาน / ราคา / ประวัติ
-│   │   ├── page.tsx        ← Portfolio grid (placeholder cards)
-│   │   ├── pricing/page.tsx ← Pricing tiers (ยังไม่มีราคาจริง)
-│   │   └── resume/page.tsx ← Resume (placeholder)
-│   └── musicwork/
-│       ├── layout.tsx      ← Sub-nav: เพลงของฉัน / ราคา
-│       ├── page.tsx        ← Songs list + Artist Bio (placeholder)
-│       └── pricing/page.tsx ← Music pricing (placeholder)
-│
+│   ├── layout.tsx            ← metadata หลัก, JSON-LD, header/footer/ContactBar
+│   ├── globals.css           ← design tokens (kuma-*), bg-dots, honey-drip, focus, reduced motion
+│   ├── page.tsx              ← หน้าแรก (hero หมีเขียนโค้ด, ผลงาน, บริการ, ขั้นตอน, FAQ, บทความ, CTA)
+│   ├── work/page.tsx         ← รวมผลงาน
+│   ├── work/[slug]/page.tsx  ← รายละเอียดผลงาน (สร้างจาก case-studies.ts)
+│   ├── services/page.tsx     ← บริการ + ราคาเริ่มต้น
+│   ├── process/page.tsx      ← ขั้นตอน 4 ขั้น + FAQ ทั้งหมด (#faq)
+│   ├── about/page.tsx
+│   ├── contact/              ← ฟอร์ม (client), layout.tsx มี metadata, actions.ts ส่งอีเมล
+│   ├── blog/page.tsx         ← หน้ารวมบทความ (สร้างจาก articles.ts)
+│   ├── blog/<slug>/page.tsx  ← บทความแต่ละเรื่อง ใช้ ArticleShell
+│   ├── sitemap.ts, robots.ts ← สร้างจากข้อมูลใน src/data
 ├── components/
-│   ├── LoadingScreen/
-│   │   ├── Loading.tsx     ← Bear unboxing animation (3 phases)
-│   │   └── Loading.css     ← Legacy CSS (อาจไม่ได้ใช้แล้ว)
-│   ├── Navbars/
-│   │   └── Navbars.css     ← Legacy CSS (อาจไม่ได้ใช้แล้ว)
-│   ├── Scroll-observer.tsx
-│   ├── ui/
-│   │   └── button.tsx      ← shadcn Button component
-│   └── reactbits/          ← Custom animation/UI components
-│       ├── PillNav.tsx     ← Sticky pill navigation (homepage)
-│       ├── GlareCard.tsx   ← 3D tilt + glare card effect
-│       ├── GrainyGradient.tsx ← Fixed background with grain texture
-│       ├── InfiniteMarquee.tsx ← Scrolling text ticker
-│       ├── ShinyText.tsx   ← Sweeping shine text animation
-│       ├── SplitText.tsx   ← Character-by-character reveal (Framer Motion)
-│       ├── TextType.tsx    ← Typewriter cycling text
-│       └── CurvedLoop.tsx  ← (usage TBD)
-│
-├── lib/
-│   └── utils.ts            ← cn() helper (clsx + tailwind-merge)
-│
-public/
-├── image/
-│   ├── Asset/KUMA.png      ← Logo ใน navbar
-│   ├── Line/profile.jpg    ← Profile photo (OG image ด้วย)
-│   └── loader/
-│       ├── Box.png         ← Loading screen: กล่องปิด
-│       ├── unbox.png       ← Loading screen: กล่องเปิด
-│       ├── inbox.png       ← Loading screen: หมีพุ่งออก
-│       └── firework.png    ← Loading screen: ดอกไม้ไฟ
+│   ├── site/                 ← SiteHeader, SiteFooter, ContactBar, PageIntro, CtaBlock, WorkShowcase, HeroArt, styles.ts
+│   ├── motion/               ← MotionProvider, Reveal (โผล่ตอนเลื่อนถึง), Float (ลอยเบา ๆ), Breathe
+│   ├── Blog/ArticleShell.tsx ← layout บทความ + ArticleSection, ArticleCode, ArticleCallout + JSON-LD BlogPosting
+│   ├── faq/FAQAccordion.tsx
+│   └── process/Timeline.tsx  ← ขั้นตอนพร้อมรูปหมี 4 ท่า
+├── data/
+│   ├── site.ts               ← siteUrl, startingRate, contact, navItems, ข้อความที่ใช้ซ้ำ
+│   ├── case-studies.ts, articles.ts, services.ts, process.ts, faq.ts
+│   └── testimonials.ts       ← ยังว่าง (ยังไม่มีรีวิวจริง)
+└── lib/                      ← utils.ts (cn), email.ts (Resend)
+
+public/image/
+├── illustrations/            ← ภาพหมี KUMA (.webp) ที่ใช้บนเว็บ
+├── work/                     ← ภาพหน้าจอผลงาน 1440×810
+├── Asset/                    ← โลโก้ KUMA.png + สติกเกอร์ขนมที่ยังใช้อยู่
+├── loader/firework.png       ← พื้นหลัง hero
+└── og-cover.jpg              ← รูปตอนแชร์ลิงก์ 1200×630
 ```
 
 ---
 
-## 🎨 Design System & Color Palette
+## 🎨 Design System
 
-### "Honey Bear" Theme (Warm Terracotta/Cream)
-```
-Background:    #FDF6EC  (cream)
-Surface:       #FFF0CC  (honey light)
-Text:          #3D1F00  (dark brown)
-Dark panel:    #2A1010  (near-black red)
-Accent:        #C07B2A, #C86858  (honey/terracotta)
-Soft:          #F5C9A0, #FAE4DC, #FAD4C0
-Border:        #E8C99A, #E8B8A8, #E7B2A4
-```
-
-### CSS Variables
-กำหนดใน `globals.css` ผ่าน `@theme` block และ `:root {}` ใช้ oklch color space  
-ตัวแปร: `--color-bg`, `--color-surface`, `--color-text`, `--color-accent`, `--color-soft`
-
-### Keyframe Animations (globals.css)
-| ชื่อ | ใช้กับใคร |
-|------|----------|
-| `shoot-out` | หมีพุ่งออกจากกล่อง loading |
-| `popout` | ดอกไม้ไฟ loading |
-| `float-cloud` | (สำรอง) |
-| `marquee-scroll` | InfiniteMarquee |
-| `shiny-sweep` | ShinyText |
-| `box-shake` | กล่อง loading เขย่า |
+- สไตล์ "สติกเกอร์หมีน้ำผึ้ง": ขอบหนา `border-2 border-kuma-bark`, เงาทึบแบบ offset, ปุ่มกดแล้วยุบ
+- สีใช้ token `kuma-*` จาก `globals.css` เท่านั้น: `cream #FDF6EC`, `honey #FFF0CC`, `gold #EEC65D`, `bark #2A1010`, `cocoa #3D1F00`, `clay #7A4838`, `amber #C07B2A`, `amber-deep #8E5400`, `terra #C86858`, `line #E8C99A`, `sand #FAE4DC` — ห้ามใช้สี generic
+- ใช้ helper จาก `src/components/site/styles.ts`: `buttonClass(variant)`, `stickerCard`, `container`, `sectionTitle`, `bodyText`
+- ภาพหมีใหม่ต้องเข้าชุดเดิม: หมีขาวครีม หูสีพีช ตาดำคล้ายแว่นกันแดด ภาพเวกเตอร์สติกเกอร์ ขอบน้ำตาลเข้ม ไม่มีตัวหนังสือ บันทึกเป็น `.webp` ใน `public/image/illustrations/`
+- Motion แบบ "มีชีวิตชีวาแต่ไม่รก": hero เปิดตัวเป็นจังหวะ, section โผล่ตอนเลื่อนถึงด้วย `Reveal`, สติกเกอร์/มาสคอตลอยเบา ๆ ด้วย `Float`, การ์ดยกตัวตอน hover — ห้ามใส่ animation วนตลอดเวลาที่รบกวนการอ่าน และต้องเคารพ reduced motion
 
 ---
 
-## 🗺️ Routes ที่มีอยู่
+## ✍️ การเพิ่มเนื้อหา
 
-| Route | สถานะ | หมายเหตุ |
-|-------|-------|---------|
-| `/` | ✅ สมบูรณ์ | Landing Hub page |
-| `/blog` | ⏳ Placeholder | ยังไม่มี posts, รอ MDX |
-| `/codework` | ⏳ Placeholder | `projects[]` array ว่าง |
-| `/codework/pricing` | ⏳ Placeholder | ราคาแสดง `฿—` |
-| `/codework/resume` | ⏳ Placeholder | ข้อมูลรอเติม |
-| `/musicwork` | ⏳ Placeholder | `songs[]` ว่าง, Bio ว่าง |
-| `/musicwork/pricing` | ⏳ Placeholder | รอข้อมูล |
+- **ผลงานใหม่**: เพิ่มใน `src/data/case-studies.ts` + ภาพปก 1440×810 ใน `public/image/work/` — หน้า `/work`, หน้ารายละเอียด และ sitemap จะอัปเดตเอง
+- **บทความใหม่**: สร้าง `src/app/blog/<slug>/page.tsx` ด้วย `ArticleShell` (ใส่ `slug`, `published`, `sources`) แล้วเพิ่มรายการใน `src/data/articles.ts`
+- บทความสำหรับลูกค้าให้เขียนถึงผู้ประกอบการจันทบุรี ห้ามแต่งตัวเลขสถิติ อ้างอิงแหล่งทางการเสมอ
 
 ---
 
-## 🧩 Component Reference
+## 🔎 SEO
 
-### `<LoadingScreen />`
-- **ที่อยู่**: `src/components/LoadingScreen/Loading.tsx`
-- **ใช้ใน**: `src/app/page.tsx` (homepage เท่านั้น)
-- **การทำงาน**: 3 phases — `box` → `shake` (400ms) → `unbox` (1100ms) → `hidden` (2400ms)
-- **Assets**: `/image/loader/{Box,unbox,inbox,firework}.png`
-
-### `<PillNav />`
-- **ที่อยู่**: `src/components/reactbits/PillNav.tsx`
-- **ใช้ใน**: `src/app/page.tsx`
-- **theme**: Honey gold (#FFF3CE background, border #C88D14)
-- **รับ props**: `items?: NavItem[]` (default คือ `[{ href: '/blog', label: 'บทความ' }]`)
-- **Logo**: `/image/Asset/KUMA.png`
-
-### `<GlareCard />`
-- **ใช้ใน**: Homepage hero cards, codework links
-- **effect**: 3D tilt + radial glare ตาม mouse position
-- **Props**: `children`, `className?`
-
-### `<GrainyGradient />`
-- **ใช้ใน**: Homepage background + codework/musicwork layouts
-- **เป็น**: `fixed inset-0 -z-10` — ไม่กิน scroll space
-- **ประกอบด้วย**: base cream + 3 gradient orbs + SVG grain overlay (opacity 22%)
-
-### `<SplitText />`
-- **Props**: `text`, `delay?` (ms per char), `duration?`, `startDelay?`
-- **ใต้ฝากระโปรง**: Framer Motion, character-by-character reveal (blur + slide up)
-
-### `<TextType />`
-- **Props**: `texts[]`, `speed?` (ms per char), `pauseDuration?`
-- **การทำงาน**: Typewriter effect วนซ้ำใน array
-
-### `<ShinyText />`
-- **Props**: `text`, `className?`, `speed?`, `color?`, `shineColor?`
-- **effect**: Moving shine gradient sweep บน text
-
-### `<InfiniteMarquee />`
-- **Props**: `text`, `className?`, `speed?`, `color?`
-- **ใช้ใน**: Footer marquee บน homepage
-
----
-
-## 📐 Layout Patterns
-
-### Homepage (/)
-```
-<LoadingScreen />          ← Full-screen overlay, auto-dismiss
-<main relative flex min-h-screen>
-  <GrainyGradient />       ← fixed background
-  <PillNav />              ← sticky top pill nav
-  <section flex-1>
-    <div max-w-[860px] grid md:grid-cols-2>
-      <GlareCard>          ← Profile card (left, full height)
-        [Photo + Name + TextType + ShinyText + Contact icons]
-      </GlareCard>
-      <div grid md:grid-rows-[7fr_3fr]>
-        <Link /codework>   ← Code card (dark, code snippet style)
-        <Link /musicwork>  ← Music card (rose gradient)
-      </div>
-    </div>
-  </section>
-  <InfiniteMarquee />
-  <footer />
-</main>
-```
-
-### Codework Layout (/codework/*)
-- Sticky top navbar: KUMA logo + 3 nav links (active = dark pill)
-- `GrainyGradient` เป็น fixed background
-
-### Musicwork Layout (/musicwork/*)
-- Sticky top navbar: KUMA logo + 2 nav links (active = rose gradient pill)
-- `GrainyGradient` เป็น fixed background
-
----
-
-## ⚠️ สิ่งที่รู้ว่า Pending / TODO
-
-1. **`projects[]` ใน `/codework/page.tsx`** — array ว่างเปล่า ต้องเติมผลงานจริง
-2. **`songs[]` และ `collaborators[]` ใน `/musicwork/page.tsx`** — ว่างเปล่า ต้องเติม
-3. **Artist Bio ใน `/musicwork/page.tsx`** — placeholder text อยู่
-4. **ราคา** ใน pricing pages แสดงเป็น `฿—` ทั้งหมด
-5. **Resume page** (`/codework/resume`) — ยังเป็น placeholder
-6. **Blog** — ยังไม่มี MDX setup, post list ว่าง
-7. **`package.json` name** ยังเป็น `"my-new-app-name"` (cosmetic)
-8. **`page.module.css`** — ดูเหมือนไม่ได้ใช้ (leftover from Next.js template)
-9. **Legacy CSS**: `LoadingScreen/Loading.css`, `Navbars/Navbars.css` — อาจลบได้
+- ทุกหน้ามี `metadata` ของตัวเอง (title, description, canonical); หน้า contact อยู่ใน `contact/layout.tsx`
+- canonical ใช้ `siteUrl` (`https://www.kumadesign.dev`) ถ้าเปลี่ยนโดเมนหลักใน Vercel ให้แก้ค่าเดียวนี้
+- JSON-LD: Organization + ProfessionalService ใน `layout.tsx`, BlogPosting ใน `ArticleShell`
 
 ---
 
 ## 🚀 Dev Commands
 
 ```bash
-npm run dev      # Start dev server (Next.js)
-npm run build    # Production build
-npm run lint     # ESLint
+pnpm install     # ติดตั้ง dependency
+pnpm dev         # dev server http://localhost:3000
+pnpm build       # production build
+pnpm lint        # ESLint
 ```
 
-Dev server: http://localhost:3000
+Deploy: push ขึ้น `main` แล้ว Vercel deploy อัตโนมัติ
 
 ---
 
 ## 📝 หมายเหตุสำหรับ AI
 
-- **ภาษาในโค้ด**: Thai text ใช้ใน UI copy, ส่วน code/comments ผสม EN/TH
-- **Tailwind**: ใช้ v4 ซึ่ง syntax อาจต่างจาก v3 เล็กน้อย (ใช้ `@import "tailwindcss"` แทน `@tailwind base/components/utilities`)
-- **ห้าม** ใช้สี generic (red, blue) — ใช้ honeybear palette เสมอ
-- **Font**: `Kanit` เป็น primary sans font (รองรับภาษาไทย), ตั้งใน `layout.tsx`
-- **Client components**: ต้องใส่ `'use client'` เมื่อใช้ hooks, useState, framer-motion
-- **Path alias**: `@/` map ไปที่ `src/`
-- **Image**: ใช้ `next/image` เสมอ (รองรับ `fill` prop สำหรับ responsive)
-- **อย่า revert** ไฟล์ที่ถูก delete ใน git worktree (ดู Codex.md หัวข้อ "Existing worktree changes")
+- Thai ใช้ใน UI copy, code/comments เป็นภาษาอังกฤษได้
+- ใส่ `'use client'` เฉพาะไฟล์ที่ใช้ hooks หรือ motion ตรง ๆ; หน้า server ใช้ wrapper ใน `components/motion/` แทน
+- Path alias `@/` → `src/`
+- ใช้ `next/image` สำหรับรูป
 
 ---
+
 
 ## Global development preferences
 

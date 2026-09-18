@@ -3,6 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { buttonClass } from '@/components/site/styles';
+import { siteUrl as SITE_URL } from '@/data/site';
+import Reveal from '@/components/motion/Reveal';
+import Float from '@/components/motion/Float';
 
 type TocItem = {
   href: string;
@@ -29,7 +32,6 @@ type ArticleShellProps = {
   children: ReactNode;
 };
 
-const SITE_URL = 'https://kumadesign.dev';
 
 export function ArticleCode({ children }: { children: string }) {
   return (
@@ -122,7 +124,11 @@ export default function ArticleShell({
         {illustration && (
           <div className="relative hidden md:col-span-4 md:block" aria-hidden="true">
             <div className="absolute inset-4 rounded-full bg-kuma-gold/60" />
-            <Image src={illustration} alt="" width={320} height={320} priority className="relative mx-auto h-auto w-full max-w-[15rem]" />
+            <Reveal y={0} scale={0.6} rotate={-15} className="relative">
+              <Float distance={8} duration={4.5}>
+                <Image src={illustration} alt="" width={320} height={320} priority className="mx-auto h-auto w-full max-w-[15rem]" />
+              </Float>
+            </Reveal>
           </div>
         )}
       </header>

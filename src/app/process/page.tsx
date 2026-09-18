@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Timeline from '@/components/process/Timeline';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 import PageIntro from '@/components/site/PageIntro';
@@ -6,6 +7,12 @@ import { container, sectionTitle } from '@/components/site/styles';
 import { processSteps } from '@/data/process';
 import { faqs } from '@/data/faq';
 import { cn } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  title: 'ขั้นตอนการทำเว็บไซต์และคำถามที่พบบ่อย',
+  description: 'ขั้นตอนทำเว็บไซต์ 4 ขั้นกับ KUMA ตั้งแต่คุยโจทย์ ออกแบบ พัฒนา จนส่งมอบ พร้อมคำตอบเรื่องราคา การชำระเงิน ระยะเวลา และการดูแลหลังส่งงาน',
+  alternates: { canonical: '/process' },
+};
 
 const FAQ_CATEGORIES = [
   { id: 'pricing' as const, label: 'ราคา & การชำระ' },

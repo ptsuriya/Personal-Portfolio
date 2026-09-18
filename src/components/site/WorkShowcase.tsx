@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Check } from 'lucide-react';
 import type { CaseStudy } from '@/data/case-studies';
+import Float from '@/components/motion/Float';
+import Reveal from '@/components/motion/Reveal';
 import { buttonClass } from './styles';
 import { cn } from '@/lib/utils';
 
@@ -21,18 +23,22 @@ export default function WorkShowcase({ studies, headingLevel = 'h3' }: WorkShowc
         const flipped = index % 2 === 1;
         return (
           <li key={study.slug} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-            <div className={cn('relative lg:col-span-7', flipped && 'lg:order-2')}>
+            <Reveal x={flipped ? 60 : -60} y={0} className={cn('relative lg:col-span-7', flipped && 'lg:order-2')}>
               {study.sticker && (
-                <Image
-                  src={study.sticker}
-                  alt=""
-                  width={160}
-                  height={160}
-                  className={cn(
-                    'pointer-events-none absolute -top-10 z-10 h-auto w-20 drop-shadow-[3px_4px_0_rgba(42,16,16,0.25)] sm:w-28',
-                    flipped ? '-left-4 -rotate-12' : '-right-4 rotate-12',
-                  )}
-                />
+                <Float
+                  distance={10}
+                  duration={4.5}
+                  sway={flipped ? -8 : 8}
+                  className={cn('pointer-events-none absolute -top-10 z-10 w-20 sm:w-28', flipped ? '-left-4' : '-right-4')}
+                >
+                  <Image
+                    src={study.sticker}
+                    alt=""
+                    width={160}
+                    height={160}
+                    className={cn('h-auto w-full drop-shadow-[3px_4px_0_rgba(42,16,16,0.25)]', flipped ? '-rotate-12' : 'rotate-12')}
+                  />
+                </Float>
               )}
               <Link
                 href={`/work/${study.slug}`}
@@ -58,9 +64,9 @@ export default function WorkShowcase({ studies, headingLevel = 'h3' }: WorkShowc
                   className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </Link>
-            </div>
+            </Reveal>
 
-            <div className="lg:col-span-5">
+            <Reveal delay={0.15} className="lg:col-span-5">
               <p className="flex flex-wrap gap-2 text-sm">
                 <span className="rounded-full border-2 border-kuma-bark bg-white px-3 py-0.5 font-medium text-kuma-bark">{study.year}</span>
                 <span className="rounded-full bg-kuma-sand px-3 py-1 text-kuma-clay">{study.client}</span>
@@ -91,7 +97,7 @@ export default function WorkShowcase({ studies, headingLevel = 'h3' }: WorkShowc
                   </a>
                 )}
               </div>
-            </div>
+            </Reveal>
           </li>
         );
       })}

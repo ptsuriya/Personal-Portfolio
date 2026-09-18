@@ -7,6 +7,7 @@ import CtaBlock from '@/components/site/CtaBlock';
 import { container, sectionTitle, stickerCard } from '@/components/site/styles';
 import { articles } from '@/data/articles';
 import { cn } from '@/lib/utils';
+import Reveal from '@/components/motion/Reveal';
 
 export const metadata: Metadata = {
   title: 'บทความทำเว็บไซต์และ SEO สำหรับผู้ประกอบการจันทบุรี',
@@ -33,9 +34,9 @@ export default function BlogIndexPage() {
       <section aria-labelledby="guides-title" className={cn(container, 'py-16 lg:py-24')}>
         <h2 id="guides-title" className={sectionTitle}>คู่มือเว็บไซต์ธุรกิจ</h2>
         <ul className="mt-12 grid gap-8 md:grid-cols-2">
-          {businessGuides.map((article) => (
-            <li key={article.slug}>
-              <Link href={`/blog/${article.slug}`} className={cn(stickerCard, 'group flex h-full flex-col p-6 transition-transform duration-200 hover:-translate-y-1 sm:p-8')}>
+          {businessGuides.map((article, index) => (
+            <Reveal as="li" key={article.slug} delay={index * 0.12} hover={{ y: -6, rotate: index % 2 ? 0.8 : -0.8 }}>
+              <Link href={`/blog/${article.slug}`} className={cn(stickerCard, 'group flex h-full flex-col p-6 sm:p-8')}>
                 {article.illustration && (
                   <span className="flex h-40 items-center justify-center rounded-2xl bg-kuma-honey">
                     <Image src={article.illustration} alt="" width={320} height={320} className="h-36 w-auto object-contain" />
@@ -51,7 +52,7 @@ export default function BlogIndexPage() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>

@@ -1,23 +1,7 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Animations */
-  --animate-popout:    popout    0.45s ease-out forwards;
-  --animate-shoot-out: shoot-out 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  --animate-box-shake: box-shake 0.5s ease-in-out 2;
-
-  /* Honey Bear Palette */
-  --color-bg: #FDF6EC;
-  --color-surface: #FFF0CC;
-  --color-text: #3D1F00;
-  --color-accent: #C07B2A;
-  --color-soft: #F5C9A0;
-
-  /* KUMA freelance site tokens */
+  /* KUMA honey bear palette */
   --color-kuma-cream: #FDF6EC;
   --color-kuma-honey: #FFF0CC;
   --color-kuma-bark: #2A1010;
@@ -31,238 +15,43 @@
   --color-kuma-gold: #EEC65D;
 
   --font-sans: 'Kanit', sans-serif;
+
+  /* Rounder corners than Tailwind's defaults, part of the sticker look */
+  --radius-sm: 0.45rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.05rem;
+  --radius-2xl: 1.35rem;
+  --radius-3xl: 1.65rem;
+  --radius-4xl: 1.95rem;
 }
 
 @layer base {
-  /*
-    1. Use a more-intuitive box-sizing model.
-  */
   *, *::before, *::after {
-    box-sizing: border-box;
+    border-color: var(--color-kuma-line);
   }
-  /*
-    2. Remove default margin
-  */
-  * {
-    margin: 0;
+
+  html {
+    scroll-behavior: smooth;
   }
-  /*
-    Typographic tweaks!
-    3. Add accessible line-height
-    4. Improve text rendering
-  */
+
   body {
-    background-color: var(--color-bg);
-    font-family: var(--font-sans);
-    color: var(--color-text);
+    background-color: var(--color-kuma-cream);
+    color: var(--color-kuma-cocoa);
     line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
-  /*
-    5. Improve media defaults
-  */
-  img, picture, video, canvas {
-    display: block;
-    max-width: 100%;
-  }
-  /*
-    6. Remove built-in form typography styles
-  */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  /*
-    7. Avoid text overflows
-  */
+
   p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
-    margin: 0;
   }
-  /*
-    8. Create a root stacking context
-  */
-  #root, #__next {
-    isolation: isolate;
+
+  :focus-visible {
+    outline: 2px solid var(--color-kuma-amber-deep);
+    outline-offset: 3px;
   }
 }
-
-@theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-:root {
-  /* Honey Bear Light Theme */
-  --background: oklch(0.972 0.018 82);      /* #FDF6EC cream */
-  --foreground: oklch(0.230 0.063 48);      /* #3D1F00 dark brown */
-  --card: oklch(0.957 0.048 82);            /* #FFF0CC honey light */
-  --card-foreground: oklch(0.230 0.063 48);
-  --popover: oklch(0.957 0.048 82);
-  --popover-foreground: oklch(0.230 0.063 48);
-  --primary: oklch(0.592 0.115 57);         /* #C07B2A honey accent */
-  --primary-foreground: oklch(0.972 0.018 82);
-  --secondary: oklch(0.845 0.072 57);       /* #F5C9A0 soft peach */
-  --secondary-foreground: oklch(0.230 0.063 48);
-  --muted: oklch(0.957 0.048 82);
-  --muted-foreground: oklch(0.464 0.075 52); /* #8B5E3C medium brown */
-  --accent: oklch(0.845 0.072 57);
-  --accent-foreground: oklch(0.230 0.063 48);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.875 0.055 75);          /* #E8C99A honey border */
-  --input: oklch(0.957 0.048 82);
-  --ring: oklch(0.592 0.115 57);
-  --chart-1: oklch(0.592 0.115 57);
-  --chart-2: oklch(0.845 0.072 57);
-  --chart-3: oklch(0.464 0.075 52);
-  --chart-4: oklch(0.957 0.048 82);
-  --chart-5: oklch(0.230 0.063 48);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.957 0.048 82);
-  --sidebar-foreground: oklch(0.230 0.063 48);
-  --sidebar-primary: oklch(0.592 0.115 57);
-  --sidebar-primary-foreground: oklch(0.972 0.018 82);
-  --sidebar-accent: oklch(0.845 0.072 57);
-  --sidebar-accent-foreground: oklch(0.230 0.063 48);
-  --sidebar-border: oklch(0.875 0.055 75);
-  --sidebar-ring: oklch(0.592 0.115 57);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-/* หมีพุ่งออกจากกล่อง — เริ่มจากตำแหน่งกล่อง แล้วโผล่ขึ้น bounce */
-@keyframes shoot-out {
-  0%   { transform: translateY(140px) scale(0.2); opacity: 0; }
-  55%  { transform: translateY(-20px) scale(1.15); opacity: 1; }
-  75%  { transform: translateY(10px) scale(0.95); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-/* ดอกไม้ไฟ fade in + scale */
-@keyframes popout {
-  0%   { transform: scale(0); opacity: 0; }
-  60%  { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* Profile floating like a cloud */
-@keyframes float-cloud {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-/* Infinite marquee scroll */
-@keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Shiny text sweep */
-@keyframes shiny-sweep {
-  0%   { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-/* กล่องเขย่า */
-@keyframes box-shake {
-  0%, 100% { transform: rotate(0deg); }
-  20%       { transform: rotate(-4deg); }
-  40%       { transform: rotate(4deg); }
-  60%       { transform: rotate(-3deg); }
-  80%       { transform: rotate(3deg); }
-}
-
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
-}
-
-/* Hero proof stack entrance — the one orchestrated motion on the site */
-@keyframes kuma-rise {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.kuma-rise { animation: kuma-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
-
-html { scroll-behavior: smooth; }
 
 /* Dot grid used behind hero and page intros */
 .bg-dots {
@@ -273,11 +62,6 @@ html { scroll-behavior: smooth; }
 /* Honey drips hanging from the bottom edge of a gold band */
 .honey-drip {
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='56'><path fill='%23EEC65D' d='M0 0h240v14H0z M28 14v26a12 12 0 0 0 24 0V14z M142 14v14a8 8 0 0 0 16 0V14z M199 14v6a6 6 0 0 0 12 0v-6z'/></svg>") repeat-x top left / 240px 56px;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-kuma-amber-deep);
-  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {

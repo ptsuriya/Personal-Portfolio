@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import Image from 'next/image';
+import Float from '@/components/motion/Float';
+import Reveal from '@/components/motion/Reveal';
 import { container } from './styles';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +25,11 @@ export default function PageIntro({ title, description, sticker, children }: Pag
         {sticker && (
           <div className="relative hidden md:col-span-4 md:block" aria-hidden="true">
             <div className="absolute inset-4 rounded-full bg-kuma-gold/60" />
-            <Image src={sticker} alt="" width={320} height={320} className="relative mx-auto h-auto w-full max-w-[16rem] rotate-3" />
+            <Reveal y={0} scale={0.6} rotate={-15} className="relative">
+              <Float distance={8} duration={4.5}>
+                <Image src={sticker} alt="" width={320} height={320} priority className="mx-auto h-auto w-full max-w-[16rem] rotate-3" />
+              </Float>
+            </Reveal>
           </div>
         )}
       </div>
