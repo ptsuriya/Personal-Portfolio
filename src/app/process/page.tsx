@@ -1,9 +1,11 @@
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import Timeline from '@/components/process/Timeline';
 import FAQAccordion from '@/components/faq/FAQAccordion';
+import PageIntro from '@/components/site/PageIntro';
+import CtaBlock from '@/components/site/CtaBlock';
+import { container, sectionTitle } from '@/components/site/styles';
 import { processSteps } from '@/data/process';
 import { faqs } from '@/data/faq';
+import { cn } from '@/lib/utils';
 
 const FAQ_CATEGORIES = [
   { id: 'pricing' as const, label: 'ราคา & การชำระ' },
@@ -14,49 +16,38 @@ const FAQ_CATEGORIES = [
 
 export default function ProcessPage() {
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <header className="mb-10">
-        <p className="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">Delivery process</p>
-        <h1 className="text-3xl font-bold tracking-[-0.025em] text-[#2A1010] sm:text-5xl">ทำงานเป็นระบบ ตั้งแต่โจทย์ถึง production</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#7A4838] sm:text-base">
-          กระบวนการ 4 ขั้นตอนที่ช่วยให้ทั้งทีมเห็นภาพเดียวกัน ตัดสินใจได้เร็ว และตรวจสอบงานได้ตลอดทาง
-        </p>
-      </header>
+    <main>
+      <PageIntro
+        title="ทำงานเป็นระบบ ตั้งแต่โจทย์ถึง production"
+        description="กระบวนการ 4 ขั้นตอนที่ช่วยให้ทั้งทีมเห็นภาพเดียวกัน ตัดสินใจได้เร็ว และตรวจสอบงานได้ตลอดทาง"
+        sticker="/image/illustrations/page-process.webp"
+      />
 
-      <section id="faq" className="mb-16">
+      <section aria-label="ขั้นตอนการทำงาน" className={cn(container, 'py-16 lg:py-24')}>
         <Timeline steps={processSteps} />
       </section>
 
-      <section className="mb-16">
-        <header className="mb-6">
-          <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#C86858]">FAQ</p>
-          <h2 className="text-2xl font-bold text-[#2A1010] sm:text-3xl">คำถามที่พบบ่อย</h2>
-        </header>
-
-        {FAQ_CATEGORIES.map((cat) => {
-          const items = faqs.filter((f) => f.category === cat.id);
-          if (items.length === 0) return null;
-          return (
-            <div key={cat.id} className="mb-8">
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#9A5848]">{cat.label}</h3>
-              <FAQAccordion items={items} />
-            </div>
-          );
-        })}
+      <section id="faq" aria-labelledby="faq-title" className="scroll-mt-24 border-t border-kuma-line/70">
+        <div className={cn(container, 'py-16 lg:py-24')}>
+          <h2 id="faq-title" className={sectionTitle}>คำถามที่พบบ่อย</h2>
+          <div className="mt-12 space-y-14">
+            {FAQ_CATEGORIES.map((cat) => {
+              const items = faqs.filter((f) => f.category === cat.id);
+              if (items.length === 0) return null;
+              return (
+                <div key={cat.id} className="grid gap-4 lg:grid-cols-12 lg:gap-10">
+                  <p className="text-lg font-semibold text-kuma-clay lg:col-span-3 lg:pt-5">{cat.label}</p>
+                  <div className="lg:col-span-9">
+                    <FAQAccordion items={items} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
-      <section className="rounded-3xl border border-[#E8B8A8]/60 bg-[linear-gradient(135deg,rgba(250,228,220,0.8)_0%,rgba(255,246,242,0.7)_100%)] p-8 text-center backdrop-blur-sm">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C86858]">Open conversation</p>
-        <h3 className="mt-2 text-xl font-bold text-[#2A1010]">มีคำถามอื่น?</h3>
-        <p className="mt-2 text-sm text-[#7A4838]">ส่งโจทย์เบื้องต้นมาให้ทีมช่วยประเมินได้</p>
-        <Link
-          href="/contact"
-          className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#2A1010] px-6 py-3 text-sm font-semibold text-[#FAD4C0] transition-all hover:-translate-y-0.5 hover:bg-[#C86858] hover:text-white"
-        >
-          คุยเรื่องโปรเจกต์
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-      </section>
+      <CtaBlock title="มีคำถามอื่น?" description="ส่งโจทย์เบื้องต้นมาให้ KUMA ช่วยประเมินได้" actionLabel="คุยเรื่องโปรเจกต์" />
     </main>
   );
 }

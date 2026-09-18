@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { buttonClass } from '@/components/site/styles';
 
 type TocItem = {
   href: string;
@@ -19,12 +21,19 @@ type ArticleShellProps = {
   tags: string[];
   toc: TocItem[];
   sources: SourceItem[];
+  /** Enables BlogPosting structured data and the published date line. */
+  slug?: string;
+  /** ISO date (YYYY-MM-DD). */
+  published?: string;
+  illustration?: string;
   children: ReactNode;
 };
 
+const SITE_URL = 'https://kumadesign.dev';
+
 export function ArticleCode({ children }: { children: string }) {
   return (
-    <pre className="mt-4 min-w-0 max-w-full overflow-x-auto rounded-2xl border border-[#3D1F00]/15 bg-[#24110B] p-4 font-mono text-xs leading-6 text-[#FAD4C0]">
+    <pre className="mt-4 min-w-0 max-w-full overflow-x-auto rounded-xl bg-kuma-bark p-4 font-mono text-[13px] leading-6 text-[#FAD4C0]">
       <code translate="no">{children}</code>
     </pre>
   );
@@ -42,13 +51,31 @@ export function ArticleSection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-28 border-t border-[#E8B8A8]/55 pt-12 first:border-t-0 first:pt-0">
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-[#24110B] sm:text-4xl">{title}</h2>
-      <div className="mt-5 space-y-5 text-sm leading-8 text-[#7A4838] sm:text-base">{children}</div>
+    <section id={id} className="scroll-mt-28 border-t border-kuma-line pt-12 first:border-t-0 first:pt-0">
+      <p className="text-sm text-kuma-clay">{eyebrow}</p>
+      <h2 className="mt-2 text-3xl font-semibold tracking-[-0.02em] text-kuma-bark sm:text-4xl">{title}</h2>
+      <div className="mt-5 space-y-5 text-base leading-8 text-kuma-clay">{children}</div>
     </section>
   );
 }
+
+/** Highlighted box inside an article, e.g. a tip or a call to action. */
+export function ArticleCallout({ title, children, action }: { title: string; children: ReactNode; action?: { href: string; label: string } }) {
+  return (
+    <aside className="rounded-3xl border-2 border-kuma-bark bg-kuma-honey p-6 text-kuma-cocoa shadow-[6px_6px_0_0_#2A1010] sm:p-7">
+      <p className="text-lg font-bold text-kuma-bark">{title}</p>
+      <div className="mt-2 space-y-3 leading-8">{children}</div>
+      {action && (
+        <Link href={action.href} className={buttonClass('primary', 'mt-5')}>
+          {action.label}
+        </Link>
+      )}
+    </aside>
+  );
+}
+
+const formatThaiDate = (iso: string) =>
+  new Date(`${iso}T00:00:00+07:00`).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Bangkok' });
 
 export default function ArticleShell({
   eyebrow,
@@ -57,44 +84,69 @@ export default function ArticleShell({
   tags,
   toc,
   sources,
+  slug,
+  published,
+  illustration,
   children,
 }: ArticleShellProps) {
+  const jsonLd =
+    slug && published
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: title,
+          description,
+          datePublished: published,
+          dateModified: published,
+          inLanguage: 'th-TH',
+          mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
+          image: `${SITE_URL}${illustration ?? '/image/og-cover.jpg'}`,
+          keywords: tags.join(', '),
+          author: { '@type': 'Organization', name: 'kumadesign.dev', url: SITE_URL },
+          publisher: { '@id': `${SITE_URL}/#organization` },
+        }
+      : null;
+
   return (
-    <main id="content" className="relative mx-auto w-full max-w-7xl px-4 pb-20 pt-12 sm:px-6 lg:px-8 lg:pb-28 lg:pt-20">
-      <a href="#article" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#24110B] focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-[#FFF7E8]">ข้ามไปยังเนื้อหาบทความ</a>
-      <header className="relative overflow-hidden rounded-[2rem] border border-[#24110B]/20 bg-[#24110B] px-6 py-12 text-[#FFF7E8] shadow-[0_28px_70px_rgba(42,16,16,0.14)] sm:px-10 sm:py-16 lg:px-14">
-        <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[34px] border-[#C86858]/20" />
-        <div className="pointer-events-none absolute -bottom-28 left-16 h-64 w-64 rounded-full bg-[#7AA36F]/15 blur-3xl" />
-        <div className="relative max-w-4xl">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-xs font-semibold text-[#FAD4C0] transition-colors hover:text-white"><ArrowLeft className="h-3.5 w-3.5" />คลังบทความ KUMA</Link>
-          <p className="mt-8 font-mono text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E8C4A0]">{eyebrow}</p>
-          <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] tracking-[-0.045em] sm:text-6xl">{title}</h1>
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-[#E8C4A0] sm:text-base">{description}</p>
-          <div className="mt-8 flex flex-wrap gap-2 text-xs font-semibold text-[#FAD4C0]">{tags.map((tag) => <span key={tag} className="rounded-full border border-[#FAD4C0]/25 px-3 py-2">{tag}</span>)}</div>
+    <main id="content" className="mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6 lg:pb-28">
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
+      <header className="grid gap-8 border-b-2 border-kuma-bark pt-10 pb-12 sm:pt-14 sm:pb-16 md:grid-cols-12 md:items-center">
+        <div className={illustration ? 'md:col-span-8' : 'md:col-span-12'}>
+          <Link href="/blog" className="inline-flex min-h-11 items-center gap-2 font-medium text-kuma-clay hover:text-kuma-bark"><ArrowLeft className="h-4 w-4" aria-hidden="true" />คลังบทความ KUMA</Link>
+          <p className="mt-6 text-[15px] text-kuma-amber-deep">{eyebrow}</p>
+          <h1 className="mt-3 max-w-4xl text-4xl font-extrabold leading-[1.12] tracking-[-0.025em] text-kuma-bark sm:text-5xl lg:text-6xl">{title}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-kuma-clay">{description}</p>
+          {published && <p className="mt-4 text-sm text-kuma-clay">เผยแพร่ <time dateTime={published}>{formatThaiDate(published)}</time> โดย KUMA</p>}
+          <ul className="mt-6 flex flex-wrap gap-2">{tags.map((tag) => <li key={tag} className="rounded-full border-2 border-kuma-bark bg-white px-3 py-1 text-sm text-kuma-cocoa">{tag}</li>)}</ul>
         </div>
+        {illustration && (
+          <div className="relative hidden md:col-span-4 md:block" aria-hidden="true">
+            <div className="absolute inset-4 rounded-full bg-kuma-gold/60" />
+            <Image src={illustration} alt="" width={320} height={320} priority className="relative mx-auto h-auto w-full max-w-[15rem]" />
+          </div>
+        )}
       </header>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-16">
+      <div className="mt-12 grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-16">
         <aside className="lg:sticky lg:top-28">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#A94E43]">On this page</p>
-          <nav aria-label="สารบัญบทความ" className="mt-4 grid gap-1 text-sm">
-            {toc.map((item) => <a key={item.href} href={item.href} className="rounded-lg px-3 py-2 text-[#7A4838] transition-colors hover:bg-[#FAE4DC] hover:text-[#24110B]">{item.label}</a>)}
+          <p className="font-semibold text-kuma-bark">ในบทความนี้</p>
+          <nav aria-label="สารบัญบทความ" className="mt-3 grid border-l border-kuma-line text-[15px]">
+            {toc.map((item) => <a key={item.href} href={item.href} className="-ml-px border-l-2 border-transparent px-4 py-2 text-kuma-clay transition-colors hover:border-kuma-amber hover:text-kuma-bark">{item.label}</a>)}
           </nav>
         </aside>
 
-        <article id="article" className="min-w-0 scroll-mt-28">
+        <article id="article" className="min-w-0 max-w-3xl scroll-mt-28">
           <div className="space-y-14">{children}</div>
 
-          <section className="mt-14 rounded-[1.75rem] border border-[#E8B8A8]/65 bg-[#FFF8F0]/70 p-5 sm:p-7">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">Official references</p>
-            <h2 className="mt-3 text-2xl font-bold tracking-[-0.03em] text-[#24110B]">อ่านต่อจากแหล่งต้นทาง</h2>
-            <div className="mt-4 grid gap-2 sm:grid-cols-2">{sources.map((source) => <a key={source.href} href={source.href} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-between gap-3 rounded-xl border border-[#E8B8A8]/55 bg-[#FFF0CC]/45 px-4 py-3 text-sm font-semibold text-[#7A3D35] transition-colors hover:border-[#C86858] hover:bg-[#FAE4DC]">{source.label}<ArrowUpRight className="h-4 w-4 shrink-0" /></a>)}</div>
+          <section className="mt-16 border-t border-kuma-line pt-10">
+            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-kuma-bark">อ่านต่อจากแหล่งต้นทาง</h2>
+            <ul className="mt-4 border-t border-kuma-line">{sources.map((source) => <li key={source.href} className="border-b border-kuma-line"><a href={source.href} target="_blank" rel="noreferrer" className="flex min-h-12 items-center justify-between gap-3 py-3 font-medium text-kuma-cocoa transition-colors hover:text-kuma-amber-deep">{source.label}<ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" /></a></li>)}</ul>
           </section>
 
-          <section className="mt-12 flex flex-col gap-4 border-t border-[#E8B8A8]/55 pt-8 text-sm sm:flex-row sm:items-center sm:justify-between">
-            <Link href="/blog" className="inline-flex items-center gap-2 font-semibold text-[#7A3D35] hover:text-[#24110B]"><ArrowLeft className="h-4 w-4" />กลับคลังบทความ</Link>
-            <Link href="/contact" className="inline-flex items-center gap-2 font-semibold text-[#7A3D35] hover:text-[#24110B]">คุยเรื่องโปรเจกต์ <ArrowRight className="h-4 w-4" /></Link>
-          </section>
+          <nav aria-label="ไปต่อ" className="mt-12 flex flex-col gap-4 text-[15px] sm:flex-row sm:items-center sm:justify-between">
+            <Link href="/blog" className="inline-flex min-h-11 items-center gap-2 font-semibold text-kuma-clay hover:text-kuma-bark"><ArrowLeft className="h-4 w-4" aria-hidden="true" />กลับคลังบทความ</Link>
+            <Link href="/contact" className="inline-flex min-h-11 items-center gap-2 font-semibold text-kuma-amber-deep hover:text-kuma-bark">คุยเรื่องโปรเจกต์กับ KUMA <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </nav>
         </article>
       </div>
     </main>

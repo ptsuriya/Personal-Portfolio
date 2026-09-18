@@ -52,7 +52,7 @@ export const faqs: FAQItem[] = [
     id: 'design-no-dev',
     question: 'รับเฉพาะ design ไม่ทำ dev ได้ไหม?',
     answer:
-      'ได้ เลือกบริการ Product UI/UX ได้เลย ทีมจะส่ง design + handoff document ให้ developer นำไปสร้างต่อ',
+      'ได้ เลือกบริการ Product UI/UX ได้เลย KUMA จะส่ง design + handoff document ให้ developer นำไปสร้างต่อ',
     category: 'general',
   },
   {

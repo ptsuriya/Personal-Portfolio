@@ -17,6 +17,19 @@
   --color-accent: #C07B2A;
   --color-soft: #F5C9A0;
 
+  /* KUMA freelance site tokens */
+  --color-kuma-cream: #FDF6EC;
+  --color-kuma-honey: #FFF0CC;
+  --color-kuma-bark: #2A1010;
+  --color-kuma-cocoa: #3D1F00;
+  --color-kuma-clay: #7A4838;
+  --color-kuma-amber: #C07B2A;
+  --color-kuma-amber-deep: #8E5400;
+  --color-kuma-terra: #C86858;
+  --color-kuma-line: #E8C99A;
+  --color-kuma-sand: #FAE4DC;
+  --color-kuma-gold: #EEC65D;
+
   --font-sans: 'Kanit', sans-serif;
 }
 
@@ -239,5 +252,39 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Hero proof stack entrance — the one orchestrated motion on the site */
+@keyframes kuma-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.kuma-rise { animation: kuma-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+html { scroll-behavior: smooth; }
+
+/* Dot grid used behind hero and page intros */
+.bg-dots {
+  background-image: radial-gradient(rgba(122, 72, 56, 0.18) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Honey drips hanging from the bottom edge of a gold band */
+.honey-drip {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='56'><path fill='%23EEC65D' d='M0 0h240v14H0z M28 14v26a12 12 0 0 0 24 0V14z M142 14v14a8 8 0 0 0 16 0V14z M199 14v6a6 6 0 0 0 12 0v-6z'/></svg>") repeat-x top left / 240px 56px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-kuma-amber-deep);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

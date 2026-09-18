@@ -1,207 +1,297 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Clock3,
-  Layers3,
-  Mail,
-  Send,
-  Sparkles,
-} from 'lucide-react';
-import InfiniteMarquee from '@/components/reactbits/InfiniteMarquee';
-import { services } from '@/data/services';
+import { ArrowRight, Check, Mail, Star } from 'lucide-react';
+import Timeline from '@/components/process/Timeline';
+import FAQAccordion from '@/components/faq/FAQAccordion';
+import WorkShowcase from '@/components/site/WorkShowcase';
+import CtaBlock from '@/components/site/CtaBlock';
+import { bodyText, buttonClass, container, sectionTitle, stickerCard } from '@/components/site/styles';
+import { businessArticles } from '@/data/articles';
+import { caseStudies } from '@/data/case-studies';
+import { services, type Service } from '@/data/services';
 import { processSteps } from '@/data/process';
+import { faqs, type FAQItem } from '@/data/faq';
+import { contact, serviceIllustrations as serviceArt, startingRate, trustPoints, workingValues } from '@/data/site';
+import { cn } from '@/lib/utils';
 
-const serviceHighlights = [
-  {
-    label: '01 / เว็บไซต์ธุรกิจ',
-    title: 'เว็บที่ทำให้คนเข้าใจคุณเร็วขึ้น',
-    description: 'วางโครงสร้าง เนื้อหา และหน้าตาให้ธุรกิจดูน่าเชื่อถือ พร้อมต่อยอด SEO ได้',
-  },
-  {
-    label: '02 / เว็บแอป',
-    title: 'ระบบที่ช่วยให้ทีมทำงานลื่นขึ้น',
-    description: 'ออกแบบ flow และพัฒนา dashboard, portal หรือระบบเฉพาะทางให้ใช้งานจริง',
-  },
-  {
-    label: '03 / UI/UX',
-    title: 'เปลี่ยนไอเดียให้เป็นหน้าจอที่ใช้ได้',
-    description: 'ตั้งแต่ user flow, wireframe ถึง design system และ handoff ให้ทีม dev',
-  },
+// Labels match the project types in the contact form, so each option pre-selects it.
+const briefStarters: { slug: Service['slug']; label: string }[] = [
+  { slug: 'frontend', label: 'เว็บบริษัท / Landing Page' },
+  { slug: 'fullstack', label: 'เว็บแอป / ระบบหลังบ้าน' },
+  { slug: 'ui-ux', label: 'ออกแบบ UI/UX' },
 ];
 
-const trustPoints = [
-  'คุย scope และงบประมาณก่อนเริ่มงาน',
-  'มี staging ให้ตรวจงานระหว่างทาง',
-  'ส่งมอบโค้ด เอกสาร และดูแลหลังเปิดใช้',
+// Finished client sites fanning up behind KUMA's laptop, left to right.
+const fanLayout = [
+  'left-[2%] bottom-[44%] -rotate-[12deg]',
+  'left-[24%] bottom-[52%] rotate-0',
+  'left-[46%] bottom-[44%] rotate-[12deg]',
 ];
+
+const homeFaqIds = ['price-fixed', 'payment', 'timeline', 'revisions', 'maintenance'];
+const rateLabel = startingRate.toLocaleString('th-TH');
 
 export default function HomePage() {
+  const homeFaqs = homeFaqIds
+    .map((id) => faqs.find((faq) => faq.id === id))
+    .filter((faq): faq is FAQItem => faq !== undefined);
+
   return (
-    <main className="relative overflow-hidden">
-      <section className="mx-auto grid w-full max-w-7xl gap-10 px-4 pb-20 pt-12 sm:px-6 sm:pt-16 lg:min-h-[calc(100svh-96px)] lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-16 lg:px-8 lg:pb-24 lg:pt-20">
-        <div>
-          <div className="mb-7 flex flex-wrap items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#8B5E3C]">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#C86858]/30 bg-[#FFF8F0]/70 px-3 py-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#7AA36F] shadow-[0_0_0_4px_rgba(122,163,111,0.14)]" />
-              เปิดรับโปรเจกต์ใหม่
-            </span>
-            <span className="hidden text-[#C07B2A] sm:inline">KUMA / DIGITAL BUILD STUDIO</span>
+    <main className="overflow-x-clip">
+      {/* Hero: KUMA coding, with real client sites rising from the laptop */}
+      <section className="bg-dots border-b-2 border-kuma-bark">
+        <div className={cn(container, 'grid gap-12 pt-10 pb-16 sm:pt-14 lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-16 lg:pb-20')}>
+          <div className="lg:col-span-6">
+            <p className="inline-flex items-center gap-2 rounded-full border-2 border-kuma-bark bg-white px-4 py-1.5 text-[15px] font-medium text-kuma-bark">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#7AA36F] shadow-[0_0_0_3px_rgba(122,163,111,0.25)]" aria-hidden="true" />
+              ฟรีแลนซ์จันทบุรี เปิดรับโปรเจกต์ใหม่
+            </p>
+            <h1 className="mt-6 text-[2.45rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-kuma-bark sm:text-6xl lg:text-[3.5rem] xl:text-[3.75rem]">
+              รับทำเว็บไซต์
+              <br />
+              คุยกับคนทำโดยตรง
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-kuma-clay">
+              KUMA ฟรีแลนซ์ในจันทบุรี รับออกแบบและพัฒนาเว็บไซต์ เว็บแอป และระบบหลังบ้าน สำหรับธุรกิจที่อยากเปลี่ยนไอเดียให้เป็นของที่ใช้งานได้จริง ตั้งแต่คุย brief จนส่งมอบ
+            </p>
+
+            <div className="mt-9 max-w-xl">
+              <p id="brief-starter" className="font-semibold text-kuma-bark">อยากเริ่มจากงานแบบไหน</p>
+              <ul aria-labelledby="brief-starter" className={cn(stickerCard, 'mt-3 overflow-hidden')}>
+                {briefStarters.map((starter) => {
+                  const service = services.find((item) => item.slug === starter.slug);
+                  return (
+                    <li key={starter.slug} className="border-b-2 border-kuma-bark/10 last:border-b-0">
+                      <Link
+                        href={`/contact?type=${starter.slug}`}
+                        className="group flex min-h-[4.5rem] items-center gap-4 px-4 py-2 transition-colors hover:bg-kuma-honey"
+                      >
+                        <Image src={serviceArt[starter.slug]} alt="" width={96} height={96} className="h-12 w-12 shrink-0 object-contain" />
+                        <span className="flex-1">
+                          <span className="block text-lg font-semibold text-kuma-bark">{starter.label}</span>
+                          {service && <span className="block text-sm text-kuma-clay">ใช้เวลาประมาณ {service.timeline}</span>}
+                        </span>
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-kuma-bark bg-kuma-gold transition-transform group-hover:translate-x-1" aria-hidden="true">
+                          <ArrowRight className="h-4 w-4 text-kuma-bark" />
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="mt-5 text-[15px] text-kuma-clay">
+                ยังไม่แน่ใจ?{' '}
+                <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1 font-semibold text-kuma-amber-deep underline-offset-4 hover:underline">
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                  ส่งอีเมลถามก่อน
+                </a>{' '}
+                หรือ{' '}
+                <a href="#work" className="font-semibold text-kuma-amber-deep underline-offset-4 hover:underline">ดูผลงานก่อน</a>
+              </p>
+            </div>
           </div>
 
-          <h1 className="max-w-4xl text-5xl font-bold leading-[1.04] tracking-[-0.055em] text-[#24110B] sm:text-7xl lg:text-[clamp(4.5rem,7.5vw,7.4rem)]">
-            มีโจทย์เว็บ?
-            <span className="mt-2 block text-[#C86858]">เริ่มคุยกับ KUMA.</span>
-          </h1>
+          <div className="lg:col-span-6">
+            <div className="relative mx-auto aspect-square w-full max-w-[34rem]">
+              <Image src="/image/loader/firework.png" alt="" width={500} height={500} aria-hidden="true" className="absolute left-1/2 top-0 h-auto w-[92%] -translate-x-1/2 opacity-80" />
+              <Image src="/image/Asset/22.png" alt="" width={120} height={120} aria-hidden="true" className="absolute right-[4%] top-[6%] h-auto w-[13%] rotate-12" />
 
-          <p className="mt-7 max-w-xl text-base leading-8 text-[#6F4638] sm:text-lg">
-            รับออกแบบและพัฒนาเว็บไซต์ เว็บแอป และระบบหลังบ้านสำหรับธุรกิจที่อยากเปลี่ยนไอเดียให้เป็นของที่ใช้งานได้จริง
-          </p>
+              {caseStudies.slice(0, 3).map((study, index) => (
+                <div key={study.slug} className={cn('absolute z-10 w-[52%] origin-bottom', fanLayout[index])}>
+                  <Link
+                    href={`/work/${study.slug}`}
+                    style={{ animationDelay: `${200 + index * 160}ms` }}
+                    className="kuma-rise block overflow-hidden rounded-xl border-2 border-kuma-bark bg-white shadow-[5px_5px_0_0_#2A1010]"
+                  >
+                    <Image
+                      src={study.cover}
+                      alt={`ผลงาน ${study.title.split(' — ')[0]}`}
+                      width={1440}
+                      height={810}
+                      sizes="(min-width: 1024px) 300px, 56vw"
+                      priority={index === 1}
+                      className="h-auto w-full"
+                    />
+                  </Link>
+                </div>
+              ))}
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#24110B] px-6 py-3.5 text-sm font-semibold text-[#FFF7E8] shadow-[0_16px_30px_rgba(36,17,11,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#C86858] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C86858] focus-visible:ring-offset-2"
-            >
-              <Send className="h-4 w-4" />
-              ส่ง brief ให้ประเมิน
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#C86858]/35 bg-[#FFF8F0]/60 px-6 py-3.5 text-sm font-semibold text-[#7A4838] transition-all duration-300 hover:-translate-y-1 hover:border-[#C86858] hover:bg-[#FAE4DC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C86858] focus-visible:ring-offset-2"
-            >
-              ดูบริการ
-              <ArrowRight className="h-4 w-4" />
+              <Image src="/image/illustrations/hero-coding.webp" alt="" width={1000} height={766} priority aria-hidden="true" className="absolute bottom-0 left-1/2 z-20 h-auto w-[84%] -translate-x-1/2" />
+
+              <p className="absolute left-[2%] top-[8%] z-30 flex h-28 w-28 -rotate-12 flex-col items-center justify-center rounded-full border-2 border-kuma-bark bg-kuma-gold text-center text-kuma-bark shadow-[4px_4px_0_0_#2A1010] sm:h-32 sm:w-32">
+                <span className="text-sm font-medium">เริ่มต้น</span>
+                <span className="text-2xl font-extrabold leading-none sm:text-3xl">{rateLabel}</span>
+                <span className="text-sm font-medium">บาท</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="วิธีทำงาน" className="bg-kuma-bark text-kuma-cream">
+        <ul className={cn(container, 'flex flex-col gap-3 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between')}>
+          {trustPoints.map((point) => (
+            <li key={point} className="flex items-center gap-3 text-[15px] font-medium">
+              <Star className="h-4 w-4 shrink-0 fill-kuma-gold text-kuma-gold" aria-hidden="true" />
+              {point}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Work */}
+      <section id="work" aria-labelledby="work-title" className={cn(container, 'scroll-mt-24 py-24 lg:py-32')}>
+        <div className="mb-16 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between lg:mb-20">
+          <div className="max-w-2xl">
+            <h2 id="work-title" className={sectionTitle}>ผลงานที่ขึ้นใช้งานจริง</h2>
+            <p className={cn(bodyText, 'mt-4')}>เว็บไซต์ที่ออกแบบและพัฒนาให้ลูกค้า ตั้งแต่บริษัทส่งออก โครงการชุมชน ไปจนถึงองค์กรไม่แสวงหากำไร</p>
+          </div>
+          <Link href="/work" className={buttonClass('secondary', 'self-start sm:self-auto')}>
+            ผลงานทั้งหมด
+          </Link>
+        </div>
+        <WorkShowcase studies={caseStudies} />
+      </section>
+
+      {/* Services on a honey band */}
+      <section id="services" aria-labelledby="services-title" className="scroll-mt-24 border-t-2 border-kuma-bark bg-kuma-gold">
+        <div className={cn(container, 'pt-20 pb-12 lg:pt-28')}>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <h2 id="services-title" className={sectionTitle}>อยากให้ KUMA ช่วยเรื่องไหน?</h2>
+              <p className="mt-4 text-base leading-8 text-kuma-cocoa">
+                งานเริ่มต้น {rateLabel} บาท ราคาจริงตามขอบเขตงาน เลือกบริการที่ใกล้กับโจทย์ที่สุด แล้วส่งรายละเอียดมาให้ช่วยประเมิน
+              </p>
+            </div>
+            <Link href="/services" className={buttonClass('secondary', 'self-start sm:self-auto')}>
+              รายละเอียดบริการ
             </Link>
           </div>
 
-          <div className="mt-10 grid max-w-xl gap-3 border-t border-[#E8B8A8]/60 pt-5 sm:grid-cols-3 sm:gap-5">
-            {trustPoints.map((point) => (
-              <div key={point} className="flex items-start gap-2 text-xs leading-5 text-[#7A4838]">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#7AA36F]" />
-                {point}
-              </div>
+          <ul className="mt-14 grid gap-8 md:grid-cols-3">
+            {services.map((service, index) => (
+              <li key={service.slug} className={cn(stickerCard, 'flex flex-col bg-kuma-cream p-6', index === 1 && 'md:translate-y-6')}>
+                <Image src={serviceArt[service.slug]} alt="" width={160} height={160} className="h-24 w-24 object-contain" />
+                <h3 className="mt-4 text-2xl font-extrabold leading-snug text-kuma-bark">{service.title}</h3>
+                <p className="mt-2 leading-7 text-kuma-clay">{service.tagline}</p>
+                <ul className="mt-5 space-y-2 border-t-2 border-dashed border-kuma-line pt-5">
+                  {service.deliverables.slice(0, 3).map((item) => (
+                    <li key={item} className="flex gap-2.5 text-[15px] leading-7 text-kuma-cocoa">
+                      <Check className="mt-1.5 h-4 w-4 shrink-0 text-kuma-amber-deep" strokeWidth={3} aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-auto pt-6 text-sm text-kuma-clay">ใช้เวลา {service.timeline}</p>
+                <Link href={`/contact?type=${service.slug}`} className={buttonClass('primary', 'mt-4 w-full')}>
+                  ขอราคางานนี้
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
+      </section>
+      <div className="honey-drip h-14" aria-hidden="true" />
 
-        <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto">
-          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#E8B8A8]/50 blur-3xl" />
-          <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-[#E7C36D]/40 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-[#24110B]/20 bg-[#24110B] p-5 shadow-[0_32px_80px_rgba(42,16,16,0.2)] sm:p-7">
-            <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-[#C86858]/20 blur-3xl" />
-            <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-[#7AA36F]/15 blur-3xl" />
-
-            <div className="relative flex items-center justify-between border-b border-[#FAD4C0]/15 pb-4 text-[10px] uppercase tracking-[0.2em] text-[#E8C4A0]/70">
-              <span>Brand-led digital work</span>
-              <span>Available / 2026</span>
-            </div>
-
-            <div className="relative flex min-h-[360px] flex-col items-center justify-center py-12 sm:min-h-[430px]">
-              <div className="absolute inset-10 rounded-full border border-[#FAD4C0]/10" />
-              <div className="absolute inset-20 rounded-full border border-dashed border-[#FAD4C0]/10" />
-              <div className="relative z-10 aspect-[2/1] w-[min(76%,310px)]">
-                <Image
-                  src="/image/Asset/KUMA.png"
-                  alt="KUMA logo"
-                  fill
-                  sizes="(min-width: 640px) 310px, 76vw"
-                  className="object-contain drop-shadow-[0_18px_25px_rgba(0,0,0,0.28)]"
-                  priority
-                />
-              </div>
-              <p className="relative z-10 mt-10 text-center text-sm font-medium tracking-[0.16em] text-[#FAD4C0]">DESIGN CLEARLY.<br />BUILD DELIBERATELY.</p>
-            </div>
-
-            <div className="relative grid grid-cols-2 gap-3 border-t border-[#FAD4C0]/15 pt-4">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#E8C4A0]/60">What we make</p>
-                <p className="mt-1 text-sm font-semibold text-[#FFF7E8]">Websites / Systems</p>
-              </div>
-              <div className="text-right">
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#E8C4A0]/60">Next step</p>
-                <p className="mt-1 text-sm font-semibold text-[#FAD4C0]">Send your brief ↗</p>
-              </div>
-            </div>
-          </div>
-          <div className="absolute -bottom-5 left-5 rounded-2xl border border-[#C86858]/25 bg-[#FFF0CC] px-4 py-3 shadow-[0_12px_26px_rgba(154,104,10,0.14)] sm:left-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#8B5E3C]">01 / intake</p>
-            <p className="mt-1 text-sm font-semibold text-[#24110B]">เล่าโจทย์ของคุณได้เลย</p>
-          </div>
+      {/* Process */}
+      <section aria-labelledby="process-title" className={cn(container, 'py-16 lg:py-24')}>
+        <div className="mx-auto mb-16 max-w-2xl text-center">
+          <h2 id="process-title" className={sectionTitle}>จาก brief สู่เว็บพร้อมใช้</h2>
+          <p className={cn(bodyText, 'mt-4')}>ทำงานเป็นขั้นตอน เห็นงานระหว่างทาง และรู้ว่าแต่ละช่วงจะได้อะไร</p>
+        </div>
+        <Timeline steps={processSteps} compact />
+        <div className="mt-14 text-center">
+          <Link href="/process" className={buttonClass('secondary')}>
+            ดูขั้นตอนเต็ม
+          </Link>
         </div>
       </section>
 
-      <section className="border-y border-[#E8B8A8]/55 bg-[#FFF8F0]/55">
-        <div className="mx-auto grid w-full max-w-7xl gap-px px-4 sm:px-6 md:grid-cols-3 lg:px-8">
-          {[
-            { icon: Layers3, label: 'เว็บไซต์ที่ชัดเจน', detail: 'Corporate site / Landing page' },
-            { icon: Sparkles, label: 'ประสบการณ์ที่ดี', detail: 'UI/UX / Design system' },
-            { icon: Clock3, label: 'พร้อมเปิดใช้งาน', detail: 'Build / QA / Launch' },
-          ].map(({ icon: Icon, label, detail }) => (
-            <div key={label} className="flex items-center gap-4 border-[#E8B8A8]/55 px-2 py-6 md:border-r md:px-6 md:py-8 md:first:pl-0 md:last:border-r-0">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#24110B] text-[#FAD4C0]"><Icon className="h-4 w-4" /></span>
-              <div><p className="text-sm font-semibold text-[#24110B]">{label}</p><p className="mt-0.5 text-xs text-[#8B5E3C]">{detail}</p></div>
+      {/* The person behind the work */}
+      <section aria-labelledby="why-title" className="border-y-2 border-kuma-bark bg-kuma-bark text-kuma-cream">
+        <div className={cn(container, 'grid gap-14 py-20 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-28')}>
+          <figure className="relative mx-auto w-full max-w-sm lg:col-span-5">
+            <div className="-rotate-3 rounded-2xl border-2 border-kuma-cream bg-kuma-cream p-3 pb-14 shadow-[8px_8px_0_0_#C07B2A]">
+              <div className="flex aspect-[4/5] w-full items-end justify-center rounded-lg bg-kuma-gold p-6">
+                <Image src="/image/illustrations/hero-bear.webp" alt="KUMA มาสคอตหมีของ kumadesign.dev" width={741} height={900} sizes="(min-width: 1024px) 300px, 70vw" className="h-auto w-[82%]" />
+              </div>
+              <figcaption className="absolute inset-x-0 bottom-4 text-center text-lg font-extrabold text-kuma-bark">KUMA คนที่คุณจะคุยงานด้วย</figcaption>
             </div>
-          ))}
-        </div>
-      </section>
+            <span aria-hidden="true" className="absolute -top-3 left-1/2 h-7 w-24 -translate-x-1/2 rotate-2 bg-kuma-gold/80" />
+            <Image src="/image/Asset/33.png" alt="" width={140} height={140} aria-hidden="true" className="absolute -bottom-8 -right-6 h-auto w-24 rotate-12" />
+          </figure>
 
-      <section id="services" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <header className="max-w-2xl">
-          <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#A94E43]">Pick your starting point</p>
-          <h2 className="text-3xl font-bold tracking-[-0.035em] text-[#24110B] sm:text-5xl">อยากให้ KUMA ช่วยเรื่องไหน?</h2>
-          <p className="mt-4 text-sm leading-7 text-[#7A4838] sm:text-base">เลือกบริการที่ใกล้กับโจทย์ที่สุด แล้วส่งรายละเอียดมาให้ช่วยประเมิน scope และงบประมาณ</p>
-        </header>
-
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {serviceHighlights.map((item, index) => (
-            <Link
-              key={item.label}
-              href={`/services#${services[index].slug}`}
-              className={`group flex min-h-[290px] flex-col rounded-[1.75rem] border p-6 transition-all duration-300 hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C86858] focus-visible:ring-offset-2 ${index === 1 ? 'border-[#24110B] bg-[#24110B] text-[#FFF7E8] shadow-[0_20px_50px_rgba(36,17,11,0.14)]' : 'border-[#E8B8A8]/65 bg-[#FFF8F0]/65 text-[#24110B]'}`}
-            >
-              <div className="flex items-start justify-between gap-4"><span className={`font-mono text-[10px] tracking-[0.18em] ${index === 1 ? 'text-[#E8C4A0]' : 'text-[#A94E43]'}`}>{item.label}</span><ArrowUpRight className={`h-5 w-5 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 ${index === 1 ? 'text-[#FAD4C0]' : 'text-[#A94E43]'}`} /></div>
-              <div className="mt-auto"><h3 className="max-w-xs text-xl font-bold leading-snug">{item.title}</h3><p className={`mt-3 text-sm leading-7 ${index === 1 ? 'text-[#E8C4A0]' : 'text-[#7A4838]'}`}>{item.description}</p><span className={`mt-6 inline-flex items-center gap-2 text-xs font-semibold ${index === 1 ? 'text-[#FAD4C0]' : 'text-[#A94E43]'}`}>ดูรายละเอียด <ArrowRight className="h-3.5 w-3.5" /></span></div>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <h2 id="why-title" className="text-3xl font-extrabold leading-tight tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+              รับงานแบบเข้าใจโจทย์ ไม่ใช่แค่รับทำตามสั่ง
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#E8C4A0]">
+              ทุกโปรเจกต์เริ่มจาก business goal ที่ชัด แล้วค่อยเลือก design และเทคโนโลยีที่เหมาะสม เพื่อให้ของที่สร้างช่วยธุรกิจได้จริง
+            </p>
+            <ul className="mt-8 space-y-4">
+              {workingValues.map((value) => (
+                <li key={value.title} className="rounded-2xl border-2 border-kuma-cream/15 p-5">
+                  <h3 className="flex items-center gap-2 text-xl font-bold">
+                    <Star className="h-4 w-4 fill-kuma-gold text-kuma-gold" aria-hidden="true" />
+                    {value.title}
+                  </h3>
+                  <p className="mt-2 leading-7 text-[#E8C4A0]">{value.description}</p>
+                </li>
+              ))}
+            </ul>
+            <Link href="/about" className={buttonClass('honey', 'mt-8')}>
+              รู้จัก KUMA
             </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 pb-20 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8 lg:pb-28">
-        <div className="rounded-[1.75rem] border border-[#24110B]/20 bg-[#24110B] p-7 text-[#FFF7E8] sm:p-9">
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#E8C4A0]">Why KUMA</p>
-          <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-0.035em]">รับงานแบบเข้าใจโจทย์<br /><span className="text-[#F3B19B]">ไม่ใช่แค่รับทำตามสั่ง</span></h2>
-          <p className="mt-5 text-sm leading-7 text-[#E8C4A0]">ทุกโปรเจกต์เริ่มจาก business goal ที่ชัด แล้วค่อยเลือก design และเทคโนโลยีที่เหมาะสม เพื่อให้ของที่สร้างช่วยธุรกิจได้จริง</p>
-          <Link href="/about" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#FAD4C0] transition-colors hover:text-white">รู้จักวิธีทำงานของเรา <ArrowRight className="h-4 w-4" /></Link>
-        </div>
-        <div className="rounded-[1.75rem] border border-[#E8B8A8]/65 bg-[#FFF8F0]/65 p-7 sm:p-9">
-          <div className="flex items-end justify-between gap-5"><div><p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A94E43]">How it works</p><h2 className="mt-3 text-3xl font-bold tracking-[-0.035em] text-[#24110B]">จาก brief สู่เว็บพร้อมใช้</h2></div><Link href="/process" className="hidden items-center gap-1 text-xs font-semibold text-[#A94E43] hover:text-[#24110B] sm:inline-flex">ดูทั้งหมด <ArrowUpRight className="h-4 w-4" /></Link></div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {processSteps.map((step) => <div key={step.step} className="border-t border-[#E8B8A8]/65 pt-4"><p className="font-mono text-[10px] text-[#A94E43]">{step.icon} / {step.duration}</p><h3 className="mt-2 text-base font-bold text-[#24110B]">{step.title}</h3><p className="mt-1 text-xs leading-6 text-[#7A4838]">{step.deliverable}</p></div>)}
           </div>
-          <Link href="/process" className="mt-7 inline-flex items-center gap-1 text-xs font-semibold text-[#A94E43] hover:text-[#24110B] sm:hidden">ดูขั้นตอนทั้งหมด <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
-        <div className="relative overflow-hidden rounded-[2rem] border border-[#C86858]/30 bg-[#F3D1C0] px-6 py-12 sm:px-12 sm:py-16">
-          <div className="absolute -right-20 -top-28 h-72 w-72 rounded-full border-[34px] border-[#C86858]/15" />
-          <div className="absolute -bottom-32 right-24 h-56 w-56 rounded-full bg-[#FFF0CC]/60 blur-2xl" />
-          <div className="relative max-w-2xl"><p className="font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-[#8B4B3F]">Your project starts here</p><h2 className="mt-4 text-4xl font-bold leading-tight tracking-[-0.04em] text-[#24110B] sm:text-6xl">มีโปรเจกต์อยู่ในหัวแล้วหรือยัง?</h2><p className="mt-5 max-w-xl text-sm leading-7 text-[#6F4638] sm:text-base">เล่าเป้าหมาย ประเภทงาน และช่วงเวลาที่อยากเริ่มมาได้เลย คุยเบื้องต้นฟรี ไม่มีข้อผูกมัด</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><Link href="/contact" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#24110B] px-6 py-3.5 text-sm font-semibold text-[#FFF7E8] transition-all hover:-translate-y-1 hover:bg-[#C86858]"><Mail className="h-4 w-4" />เริ่มคุยเรื่องงาน</Link><Link href="/process#faq" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#8B4B3F]/35 px-6 py-3.5 text-sm font-semibold text-[#6F4638] transition-all hover:-translate-y-1 hover:bg-[#FFF0CC]/50">คำถามที่พบบ่อย <ArrowRight className="h-4 w-4" /></Link></div></div>
+      {/* FAQ */}
+      <section aria-labelledby="faq-title" className={cn(container, 'grid gap-10 py-20 lg:grid-cols-12 lg:py-28')}>
+        <div className="lg:col-span-4">
+          <Image src="/image/Asset/21.png" alt="" width={140} height={140} aria-hidden="true" className="-ml-2 h-auto w-24 -rotate-6" />
+          <h2 id="faq-title" className={cn(sectionTitle, 'mt-2')}>คำถามที่พบบ่อย</h2>
+          <p className={cn(bodyText, 'mt-4')}>เรื่องราคา การชำระเงิน ระยะเวลา และการดูแลหลังส่งงาน</p>
+          <Link href="/process#faq" className={buttonClass('secondary', 'mt-7')}>
+            ดูคำถามทั้งหมด
+          </Link>
+        </div>
+        <div className={cn(stickerCard, 'px-6 py-2 lg:col-span-8')}>
+          <FAQAccordion items={homeFaqs} />
         </div>
       </section>
 
-      <InfiniteMarquee text="KUMA / WEB DESIGN • FRONTEND DEVELOPMENT • WEB APPLICATION • รับโปรเจกต์ใหม่ •" className="py-3" speed={30} color="#C86858" />
-
-      <footer className="border-t border-[#E8A888]/30 px-4 py-8 sm:px-6">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 text-xs text-[#8C4D40] sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3"><span className="relative block h-[42px] w-[84px]"><Image src="/image/Asset/KUMA.png" alt="KUMA" fill sizes="84px" className="object-contain" /></span><span>รับออกแบบและพัฒนาเว็บสำหรับธุรกิจ</span></div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2"><Link href="/services" className="hover:text-[#C86858]">บริการ</Link><Link href="/work" className="hover:text-[#C86858]">โซลูชัน</Link><Link href="/process" className="hover:text-[#C86858]">กระบวนการ</Link><Link href="/contact" className="hover:text-[#C86858]">ติดต่อ</Link></div>
+      {/* Guides for business owners — also internal links for SEO */}
+      <section aria-labelledby="guides-title" className="border-t-2 border-kuma-bark bg-kuma-honey/60">
+        <div className={cn(container, 'py-20 lg:py-24')}>
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <h2 id="guides-title" className={sectionTitle}>อ่านก่อนทำเว็บ</h2>
+              <p className={cn(bodyText, 'mt-4')}>คู่มือสั้น ๆ สำหรับผู้ประกอบการจันทบุรี เรื่องเว็บไซต์ธุรกิจและการทำให้ลูกค้าค้นเจอบน Google</p>
+            </div>
+            <Link href="/blog" className={buttonClass('secondary', 'self-start sm:self-auto')}>
+              บทความทั้งหมด
+            </Link>
+          </div>
+          <ul className="mt-12 grid gap-6 md:grid-cols-2">
+            {businessArticles.map((article) => (
+              <li key={article.slug}>
+                <Link href={`/blog/${article.slug}`} className={cn(stickerCard, 'group flex h-full items-center gap-5 p-5 sm:p-6')}>
+                  {article.illustration && (
+                    <Image src={article.illustration} alt="" width={160} height={160} className="h-24 w-24 shrink-0 object-contain" />
+                  )}
+                  <span>
+                    <span className="block text-xl font-extrabold leading-snug text-kuma-bark group-hover:text-kuma-amber-deep">{article.title}</span>
+                    <span className="mt-2 line-clamp-2 block text-[15px] leading-7 text-kuma-clay">{article.description}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </footer>
+      </section>
+
+      <CtaBlock title="มีโปรเจกต์อยู่ในหัวแล้วหรือยัง?" />
     </main>
   );
 }

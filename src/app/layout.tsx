@@ -3,8 +3,9 @@ import Script from "next/script";
 import { Kanit, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import PillNav from "@/components/reactbits/PillNav";
-import GrainyGradient from "@/components/reactbits/GrainyGradient";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
+import ContactBar from "@/components/site/ContactBar";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -16,14 +17,21 @@ const kanit = Kanit({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kumadesign.dev"),
   title: {
-    default: "kumadesign.dev — รับเขียนเว็บไซต์และเว็บแอป",
+    default: "ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี — kumadesign.dev",
     template: "%s | kumadesign.dev",
   },
   description:
-    "รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้าน ด้วย Next.js, React และ Laravel พร้อมวางโครงสร้าง พัฒนา และ deploy ให้ใช้งานจริง",
+    "KUMA ฟรีแลนซ์รับทำเว็บไซต์ในจันทบุรี รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้าน ด้วย Next.js, React และ Laravel คุยงานกับคนทำโดยตรง ตั้งแต่วางโครงสร้าง พัฒนา จน deploy ใช้งานจริง",
   keywords: [
     "KUMA",
-    "web development studio",
+    "ฟรีแลนซ์",
+    "ฟรีแลนซ์รับทำเว็บไซต์",
+    "ฟรีแลนซ์ จันทบุรี",
+    "รับทำเว็บไซต์ จันทบุรี",
+    "รับทำเว็บ จันทบุรี",
+    "รับเขียนเว็บไซต์ จันทบุรี",
+    "freelance web developer",
+    "web developer Chanthaburi",
     "รับเขียนเว็บไซต์",
     "รับทำเว็บบริษัท",
     "รับเขียนโปรแกรม",
@@ -46,27 +54,27 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "kumadesign.dev — รับเขียนเว็บไซต์และเว็บแอป",
+    title: "ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี — kumadesign.dev",
     description:
-      "รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ",
+      "KUMA ฟรีแลนซ์รับทำเว็บไซต์ในจันทบุรี รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ",
     url: "/",
     siteName: "kumadesign.dev",
     locale: "th_TH",
     type: "website",
     images: [
       {
-        url: "/image/Asset/KUMA.png",
+        url: "/image/og-cover.jpg",
         width: 1200,
         height: 630,
-        alt: "KUMA — รับออกแบบและพัฒนาเว็บ",
+        alt: "KUMA ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี เริ่มต้น 2,500 บาท",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "kumadesign.dev — รับเขียนเว็บไซต์และเว็บแอป",
-    description: "รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ",
-    images: ["/image/Asset/KUMA.png"],
+    title: "ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี — kumadesign.dev",
+    description: "KUMA ฟรีแลนซ์รับทำเว็บไซต์ในจันทบุรี รับเขียนเว็บไซต์บริษัท Landing Page เว็บแอป และระบบหลังบ้านสำหรับธุรกิจ",
+    images: ["/image/og-cover.jpg"],
   },
   robots: {
     index: true,
@@ -95,7 +103,7 @@ const jsonLd = {
       url: "https://kumadesign.dev",
       image: "https://kumadesign.dev/image/Asset/KUMA.png",
       email: "mailto:ptsuriyarangsri@gmail.com",
-      description: "Web development studio for business websites and web applications",
+      description: "KUMA — freelance web designer and developer in Chanthaburi, Thailand, building business websites and web applications",
       knowsAbout: [
         "UI/UX Design",
         "Frontend Development",
@@ -109,12 +117,15 @@ const jsonLd = {
     {
       "@type": "ProfessionalService",
       "@id": "https://kumadesign.dev/#service",
-      name: "kumadesign.dev Web Development Studio",
+      name: "kumadesign.dev ฟรีแลนซ์รับทำเว็บไซต์ จันทบุรี",
       url: "https://kumadesign.dev",
       provider: { "@id": "https://kumadesign.dev/#organization" },
-      areaServed: "TH",
-      serviceType: ["Website Development", "Web Application Development", "Frontend Development"],
-      priceRange: "฿฿",
+      areaServed: [
+        { "@type": "City", name: "Chanthaburi" },
+        { "@type": "Country", name: "Thailand" },
+      ],
+      serviceType: ["Freelance Web Development", "Website Development", "Web Application Development", "Frontend Development"],
+      priceRange: "เริ่มต้น ฿2,500",
     },
   ],
 };
@@ -126,10 +137,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th" className={cn("font-sans", geist.variable)}>
-      <body className={cn(kanit.className, "relative min-h-screen")}>
-        <GrainyGradient />
-        <PillNav />
-        {children}
+      <body className={cn(kanit.className, "relative min-h-screen bg-kuma-cream text-kuma-cocoa")}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-kuma-bark focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-kuma-cream"
+        >
+          ข้ามไปยังเนื้อหาหลัก
+        </a>
+        <SiteHeader />
+        <div id="main-content" tabIndex={-1} className="outline-none">
+          {children}
+        </div>
+        <SiteFooter />
+        <ContactBar />
         <Script
           id="schema-jsonld"
           type="application/ld+json"
