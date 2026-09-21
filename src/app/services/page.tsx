@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Check } from 'lucide-react';
 import PageIntro from '@/components/site/PageIntro';
 import CtaBlock from '@/components/site/CtaBlock';
+import ComingSoonBanner from '@/components/site/ComingSoonBanner';
 import { buttonClass, container } from '@/components/site/styles';
 import { services } from '@/data/services';
 import { serviceIllustrations as serviceArt, startingRate, workingPromises } from '@/data/site';
@@ -96,6 +97,10 @@ export default function ServicesPage() {
             </Reveal>
           </section>
         ))}
+      </div>
+
+      <div className={cn(container, 'pb-16')}>
+        <ComingSoonBanner />
       </div>
 
       <section aria-label="สิ่งที่ได้ทุกงาน" className="border-t border-kuma-line/70 bg-white/40">

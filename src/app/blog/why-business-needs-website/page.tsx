@@ -166,7 +166,7 @@ export default function WhyBusinessNeedsWebsiteArticle() {
           title={`KUMA รับทำเว็บไซต์ให้ธุรกิจในจันทบุรี เริ่มต้น ${startingRate.toLocaleString('th-TH')} บาท`}
           action={{ href: '/contact', label: 'ขอประเมินราคาฟรี' }}
         >
-          <p>คุยงานกับคนออกแบบและเขียนเว็บโดยตรง ช่วยวางว่าธุรกิจของคุณควรเริ่มจากหน้าไหน และเตรียมข้อมูลอะไรบ้าง ดูรายละเอียดได้ที่<Link href="/services" className={link}>หน้าบริการ</Link></p>
+          <p>คุยงานกับคนออกแบบและเขียนเว็บโดยตรง ในจันทบุรีนัดเจอได้ ช่วยวางว่าธุรกิจของคุณควรเริ่มจากหน้าไหน และเตรียมข้อมูลอะไรบ้าง ดูราคาและรายละเอียดได้ที่<Link href="/chanthaburi" className={link}>รับทำเว็บไซต์ จันทบุรี</Link></p>
         </ArticleCallout>
       </ArticleSection>
 

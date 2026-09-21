@@ -40,6 +40,7 @@ export default function SiteFooter() {
           <p className="font-semibold text-kuma-gold">ติดต่อ</p>
           <ul className="mt-4 space-y-2 text-[#E8C4A0]">
             <li><Link href="/contact" className="transition-colors hover:text-kuma-cream">ขอใบเสนอราคา</Link></li>
+            <li><Link href="/chanthaburi" className="transition-colors hover:text-kuma-cream">รับทำเว็บไซต์ จันทบุรี</Link></li>
             <li><a href={`mailto:${contact.email}`} className="break-all transition-colors hover:text-kuma-cream">{contact.email}</a></li>
           </ul>
         </div>

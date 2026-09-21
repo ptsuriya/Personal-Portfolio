@@ -6,6 +6,7 @@ import FAQAccordion from '@/components/faq/FAQAccordion';
 import WorkShowcase from '@/components/site/WorkShowcase';
 import CtaBlock from '@/components/site/CtaBlock';
 import HeroArt from '@/components/site/HeroArt';
+import ComingSoonBanner from '@/components/site/ComingSoonBanner';
 import Reveal from '@/components/motion/Reveal';
 import Float from '@/components/motion/Float';
 import { bodyText, buttonClass, container, sectionTitle, stickerCard } from '@/components/site/styles';
@@ -39,13 +40,13 @@ export default function HomePage() {
         <div className={cn(container, 'grid gap-12 pt-10 pb-16 sm:pt-14 lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-16 lg:pb-20')}>
           <div className="lg:col-span-6">
             <Reveal y={0} scale={0.8} className="inline-flex">
-              <p className="inline-flex items-center gap-2 rounded-full border-2 border-kuma-bark bg-white px-4 py-1.5 text-[15px] font-medium text-kuma-bark">
+              <Link href="/chanthaburi" className="inline-flex items-center gap-2 rounded-full border-2 border-kuma-bark bg-white px-4 py-1.5 text-[15px] font-medium text-kuma-bark transition-colors hover:bg-kuma-honey">
                 <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#7AA36F] opacity-60" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#7AA36F]" />
                 </span>
                 ฟรีแลนซ์จันทบุรี เปิดรับโปรเจกต์ใหม่
-              </p>
+              </Link>
             </Reveal>
             <h1 className="mt-6 text-[2.45rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-kuma-bark sm:text-6xl lg:text-[3.5rem] xl:text-[3.75rem]">
               รับทำเว็บไซต์
@@ -171,6 +172,7 @@ export default function HomePage() {
               </Reveal>
             ))}
           </ul>
+          <ComingSoonBanner className="mt-16" />
         </div>
       </section>
       <div className="honey-drip h-14" aria-hidden="true" />

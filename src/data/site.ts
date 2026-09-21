@@ -1,8 +1,33 @@
 /** Canonical site origin (Vercel redirects the bare domain to www). */
 export const siteUrl = 'https://www.kumadesign.dev';
 
-/** Minimum project rate in THB. */
+/** Minimum project rate in THB (domain and hosting not included). */
 export const startingRate = 2500;
+
+/** Minimum add-on price in THB for a self-edit admin backend. */
+export const adminAddonRate = 5000;
+
+/** Service announced but not yet open for orders. */
+export const comingSoonService = {
+  title: 'ระบบจัดการเกษตรอัจฉริยะ',
+  subtitle: 'Smart Farm',
+  description: 'เว็บและระบบจัดการสำหรับสวน ฟาร์ม และผู้ประกอบการเกษตร เปิดให้บริการเร็ว ๆ นี้ สนใจสอบถามรายละเอียดล่วงหน้าได้',
+  mailSubject: 'สนใจระบบจัดการเกษตรอัจฉริยะ',
+};
+
+/** Districts of Chanthaburi, used on the local landing page. */
+export const chanthaburiDistricts = [
+  'เมืองจันทบุรี',
+  'ท่าใหม่',
+  'ขลุง',
+  'แหลมสิงห์',
+  'นายายอาม',
+  'มะขาม',
+  'โป่งน้ำร้อน',
+  'สอยดาว',
+  'แก่งหางแมว',
+  'เขาคิชฌกูฏ',
+];
 
 /** Illustration per service slug (see src/data/services.ts). */
 export const serviceIllustrations = {

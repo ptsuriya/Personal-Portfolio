@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# The browser pane writes this when it starts the dev server; it points at one machine.
+.claude/launch.json

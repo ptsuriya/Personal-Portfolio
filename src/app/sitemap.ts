@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/`, lastModified: now, priority: 1 },
     { url: `${BASE}/work`, lastModified: now, priority: 0.9 },
     { url: `${BASE}/services`, lastModified: now, priority: 0.9 },
+    { url: `${BASE}/chanthaburi`, lastModified: now, priority: 0.9 },
     { url: `${BASE}/process`, lastModified: now, priority: 0.7 },
     { url: `${BASE}/about`, lastModified: now, priority: 0.7 },
     { url: `${BASE}/contact`, lastModified: now, priority: 0.8 },
