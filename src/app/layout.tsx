@@ -102,7 +102,7 @@ const jsonLd = {
       name: "kumadesign.dev",
       url: siteUrl,
       image: `${siteUrl}/image/Asset/KUMA.png`,
-      email: "mailto:ptsuriyarangsri@gmail.com",
+      email: "mailto:contact@kumadesign.dev",
       description: "KUMA — freelance web designer and developer in Chanthaburi, Thailand, building business websites and web applications for clients anywhere",
       knowsAbout: [
         "UI/UX Design",

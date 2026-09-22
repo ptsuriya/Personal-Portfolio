@@ -108,6 +108,6 @@ export async function submitContact(
     return { ok: true };
   } catch (e) {
     console.error('[contact] Resend send failed:', e);
-    return { ok: false, error: 'ส่งไม่สำเร็จ ลองอีกครั้งหรือส่งอีเมลตรงไปที่ ptsuriyarangsri@gmail.com' };
+    return { ok: false, error: 'ส่งไม่สำเร็จ ลองอีกครั้งหรือส่งอีเมลตรงไปที่ contact@kumadesign.dev' };
   }
 }

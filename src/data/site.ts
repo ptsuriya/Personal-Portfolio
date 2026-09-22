@@ -37,8 +37,8 @@ export const serviceIllustrations = {
 } as const;
 
 export const contact = {
-  email: 'ptsuriyarangsri@gmail.com',
-  bookingMailto: 'mailto:ptsuriyarangsri@gmail.com?subject=ขอนัดคุย%2030%20นาที',
+  email: 'contact@kumadesign.dev',
+  bookingMailto: 'mailto:contact@kumadesign.dev?subject=ขอนัดคุย%2030%20นาที',
 };
 
 export const navItems = [
